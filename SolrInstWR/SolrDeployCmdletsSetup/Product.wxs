@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <!-- creating MSIs for local apps http://blogs.msdn.com/b/astebner/archive/2007/11/18/6385121.aspx -->
+  <?define productName="Windows Azure Powershell for Apache Solr and Node.js" ?>
+  <?define sourcedir="$(var.SolutionDir)SolrDeployCmdlets\bin\$(var.Configuration)" ?>
+  <?define sourcedirTillScaffolding="$(var.SolutionDir)SolrDeployCmdlets\bin\$(var.Configuration)\Scaffolding\Solr" ?>
+  <?define version="0.5.2" ?>
+  <?define azureSdkVersion="v1.6" ?>
+  <?define nodejsCmdletVersionedFolder="Nov2011" ?>
+  <?define nodejsCmdletDll="AzureDeploymentCmdlets.dll" ?>
+  <?define couchdbCmdletDll="SolrDeployCmdlets.dll" ?>
+  <?define versionedStartMenuFolder="Windows Azure SDK for Node.js - November 2011" ?>
+
+  <Product Id="906AF21B-AB46-463D-AF74-22AA44CC28D0"
+           Name="$(var.productName)"  
+           Language="1033"
+           Version="$(var.version)"
+           Manufacturer="Microsoft"
+           UpgradeCode="B013324B-CC8D-4EB6-85E4-4907D156A67A">
+
+    <Package InstallerVersion="200" Compressed="yes" Platform="x86" />
+
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <!-- Windows Azure SDK version -->
+    <Property Id="WindowsAzureSdkVersion">$(var.azureSdkVersion)</Property>
+    <Property Id="SolrSlaveWorkerRoleFolder"></Property>
+    <Property Id="SolrMasterWorkerRoleFolder"></Property>
+    <Property Id="SolrAdminWebRoleFolder"></Property>
+
+    <!-- Dependency on Windows Azure PowerShell for Node.js -->
+    <Property Id="WINDOWSAZURENODEJSSDK">
+      <DirectorySearch Id="WINDOWSAZURENODEJSSDKDir" Path="[ProgramFilesFolder]Microsoft SDKs\Windows Azure\Nodejs">
+      </DirectorySearch>
+    </Property>
+    <Condition Message="You must install Windows Azure PowerShell for Node.js.">
+      Installed OR WINDOWSAZURENODEJSSDK
+    </Condition>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <!-- Solr install location -->
+        <Directory Id="SolrOnAzureSdkFolder" Name="SolrOnAzure">
+          <Directory Id="WindowsAzureSdkFolderInSolrOnAzure" Name = "Windows Azure">
+            <Directory Id="SolrFolder" Name="Solr">
+              <Directory Id="SolrSlaveWorkerRoleFolder" Name="SolrSlaveHostWorkerRole" />
+              <Directory Id="SolrMasterWorkerRoleFolder" Name="SolrMasterHostWorkerRole" />
+              <Directory Id="SolrAdminWebRoleFolder" Name="SolrAdminWebRole" />
+            </Directory>
+          </Directory>
+        </Directory>
+
+        <!-- Microsoft's node.js install location -->
+        <Directory Id="MicrosoftSdkFolder" Name = "Microsoft SDKs">
+          <Directory Id="WindowsAzureSdkFolder" Name = "Windows Azure">
+            <Directory Id="NodejsFolder" Name = "Nodejs">
+              <Directory Id="NodejsCmdletVersionedFolder" Name = "$(var.nodejsCmdletVersionedFolder)">
+                <Directory Id="MicrosoftPowerShellFolder" Name = "PowerShell"/>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="AzureSdkSolrOnAzureFolder" Name="$(var.versionedStartMenuFolder)"/>
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="AzureSdkSolrOnAzureFolder">
+      <Component Id="AzureSdkSolrOnAzureShortcuts" Guid="6B507482-C005-4930-906A-3558836A2CF6">
+        <RemoveFolder Id="SolrOnAzureSdkFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU"
+                       Key="SOFTWARE\SolrOnAzure\SolrInstWR"
+                       Name="InstallLocation"
+                       Type="string"
+                       Value="[WindowsAzureSdkFolderInSolrOnAzure]"
+                       KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="azurecmdnodejs" Title="Windows Azure Powrshell for Apache Solr and Node.js" Level="1" Description="Windows PowerShell commandlets for deploying Apache Solr on Windows Azure">
+      <ComponentGroupRef Id="azurecmdfilesSolrOnAzure" />
+      <ComponentGroupRef Id="azurecmdfilesMicrosoft" />
+      <ComponentRef Id="AzureSdkSolrOnAzureShortcuts" />
+      <ComponentGroupRef Id="Product.Generated" />
+    </Feature>
+    <!-- Installer UI -->
+    <UI>
+      <UIRef Id="WixUI_Minimal" />
+    </UI>
+  </Product>
+  <?include azurecmdfilesSolrOnAzure.wxi ?>
+</Wix>

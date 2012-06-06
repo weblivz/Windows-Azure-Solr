@@ -1,0 +1,12 @@
+<Scaffold>
+  <ScaffoldFile PathExpression="Solr\\.*" />
+  <ScaffoldFile PathExpression="SolrFiles\\.*" />
+ 
+  <ScaffoldFile Path="HelperLib.dll"/>
+  <ScaffoldFile Path="Microsoft.WindowsAzure.CloudDrive.dll" />
+  <ScaffoldFile Path="Microsoft.WindowsAzure.Diagnostics.dll" />
+  <ScaffoldFile Path="Microsoft.WindowsAzure.StorageClient.dll" />
+  
+  <ScaffoldFile Path="SolrMasterHostWorkerRole.dll" />
+  <ScaffoldFile Path="SolrMasterHostWorkerRole.dll.config" />
+</Scaffold>

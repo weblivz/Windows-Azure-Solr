@@ -1,0 +1,91 @@
+﻿<DeploymentModel  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Parameters>
+    <Parameter Name="ServiceModel" Value="paas"></Parameter>
+    <Parameter Name="Emulator" Value="false"></Parameter>
+    <Parameter Name="Subscription" Value="" Required="yes"></Parameter>
+    <Parameter Name="DomainName" Value="" Required="yes"></Parameter>
+    <Parameter Name="StorageAccountName" ValuePrefixRef="DomainName" ValueSuffix="stg" Required="yes"></Parameter>
+    <Parameter Name="DeploymentName" ValuePrefixRef="DomainName" ValueSuffix="deploy" Required="yes"></Parameter>
+
+    <Parameter Name="VMSizeMasterRole" Value="Small"></Parameter>
+    <Parameter Name="VMCountMasterRole" Value="1"></Parameter>
+
+    <Parameter Name="VMSizeSlaveRole" Value="Small"></Parameter>
+    <Parameter Name="VMCountSlaveRole" Value="2"></Parameter>
+
+    <Parameter Name="Region" Value=""></Parameter>
+    <Parameter Name="DeploymentOption" Value="Production"></Parameter>
+    <Parameter Name="AppName" Value="SolrOnAzure" Required="yes"></Parameter>
+    <Parameter Name="AzureNodeJSSdkBinPath" Value="C:\Program Files (x86)\nodejs" Required="yes"></Parameter>
+    <Parameter Name="AppFolder" Value="C:\Temp\DeploySolr" Required="yes"></Parameter>
+    <Parameter Name="PublishSettingsPath" Value=""></Parameter>
+    <Parameter Name="PublishSettingsFilePath" Value=""></Parameter>
+    
+    <Parameter Name="SolrDeployCmdletsAssemblyPath"
+               Value="C:\Program Files (x86)\Microsoft SDKs\Windows Azure\Nodejs\Nov2011\PowerShell\SolrDeployCmdlets.dll" Required="yes"></Parameter>
+    <Parameter Name="AzureDeploymentCmdletsAssemblyPath"
+               Value="C:\Program Files (x86)\Microsoft SDKs\Windows Azure\Nodejs\Nov2011\PowerShell\AzureDeploymentCmdlets.dll" Required="yes"></Parameter>
+    <Parameter Name="SolrSetupPath" Value="http://mirror.cc.columbia.edu/pub/software/apache/lucene/solr/3.5.0/apache-solr-3.5.0.zip" Required="yes"></Parameter>
+    <!--<Parameter Name="JRESetupPath" Value="http://download.oracle.com/otn-pub/java/jdk/7u4-b22/jre-7u4-windows-x64.exe" Required="yes"></Parameter>-->
+    <Parameter Name="JREInstallFolder" Value="C:\Program Files\Java\jre7"></Parameter>
+
+    <Parameter Name="ProductId" Value="906AF21B-AB46-463D-AF74-22AA44CC28D0"></Parameter>
+    <Parameter Name="SolrDeploymentCmdletsSetupPath" Value="http://localhost/SolrInstWR.msi" Required="yes"></Parameter>
+  </Parameters>
+  <Steps>
+    <Step Type="Cmdlet" Command="Install-AzureSdkForNodeJs" Message="Installing Windows Azure PowerShell for Node.JS">
+    </Step>
+    <Step Type="Cmdlet" Command="Install-AzureOSSCommandlets" Message="Installing">
+      <CommandParam Name="ProductId" ParameterName="ProductId" />
+      <CommandParam Name="DownloadLoc" ParameterName="SolrDeploymentCmdletsSetupPath" />
+    </Step>
+    <Step Type="Cmdlet" Command="Add-LoadAssembly" Message="Loading Windows Azure PowerShell for Node.JS">
+      <CommandParam Name="CmdletsAssemblyPath" ParameterName="AzureDeploymentCmdletsAssemblyPath" />
+    </Step>
+    <Step Type="Cmdlet" Command="Add-LoadAssembly" Message="Loading Windows Azure PowerShell for Apache Solr and Node.JS">
+      <CommandParam Name="CmdletsAssemblyPath" ParameterName="SolrDeployCmdletsAssemblyPath" />
+    </Step>
+    <!--<Step Type="Cmdlet" Command="Install-JRE" Message="Installing JRE">
+      <CommandParam Name="JRESetupPath" ParameterName="JRESetupPath" />
+      <CommandParam Name="JREInstallFolder" ParameterName="JREInstallFolder" />
+    </Step>-->
+    <Step Type="Cmdlet" Command="Get-Solr" Message="Downloading Solr Binaries">
+      <CommandParam Name="SolrSetupPath" ParameterName="SolrSetupPath" />
+    </Step>
+    <Step Type="Cmdlet" Command="New-ApplicationDirectory" Message="Creating application directory">
+      <CommandParam Name="AppFolder" ParameterName="AppFolder" />
+    </Step>
+    <Step Type="ChangeWorkingDir" Command="" Message="">
+      <CommandParam Name="WorkingDir" ParameterName="AppFolder" />
+    </Step>
+    <Step Type="Cmdlet" Command="New-AzureService" Message="Creating new Azure service">
+      <CommandParam Name="Name" ParameterName="AppName" />
+    </Step>
+    <Step Type="Cmdlet" Command="Add-AzureSolrMasterWorkerRole" Message="Adding Solr Master Worker Role">
+      <CommandParam Name="JREInstallFolder" ParameterName="JREInstallFolder" />
+      <CommandParam Name="Size" ParameterName="VMSizeMasterRole" />
+      <CommandParam Name="Instances" ParameterName="VMCountMasterRole" />
+    </Step>
+    <Step Type="Cmdlet" Command="Add-AzureSolrSlaveWorkerRole" Message="Adding Solr Slave Worker Role">
+      <CommandParam Name="JREInstallFolder" ParameterName="JREInstallFolder" />
+      <CommandParam Name="Size" ParameterName="VMSizeSlaveRole" />
+      <CommandParam Name="Instances" ParameterName="VMCountSlaveRole" />
+    </Step>
+    <Step Type="Cmdlet" Command="Add-AzureSolrWebRole" Message="Adding Solr Web Role">
+    </Step>
+    <Step Type="Cmdlet" Command="Import-AzurePublishSettings" Message="Importing Publish settings">
+      <CommandParam Name="Path" ParameterName="PublishSettingsFilePath" />
+    </Step>
+    <Step Type="Cmdlet" Command="Set-AzureSolrStorageAccount" Message="Setting storage account details">
+      <CommandParam Name="StorageAccountName" ParameterName="StorageAccountName" />
+      <CommandParam Name="Subscription" ParameterName="Subscription" />
+      <CommandParam Name="StorageAccountLocation" ParameterName="Region" />
+    </Step>
+    <Step Type="Cmdlet" Command="Publish-AzureService -launch" Message="Deploying the app to Azure">
+      <CommandParam Name="Name" ParameterName="DeploymentName" />
+      <CommandParam Name="StorageAccountName" ParameterName="StorageAccountName" />
+      <CommandParam Name="Slot" ParameterName="DeploymentOption" />
+      <CommandParam Name="Location" ParameterName="Region" />
+    </Step>
+  </Steps>
+</DeploymentModel>

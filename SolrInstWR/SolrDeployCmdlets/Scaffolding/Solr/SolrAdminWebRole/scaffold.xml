@@ -1,0 +1,16 @@
+<Scaffold>
+  <ScaffoldFile PathExpression="bin\\.*" />
+  <ScaffoldFile PathExpression="Content\\.*" />
+  <ScaffoldFile PathExpression="Controllers\\.*" />
+  <ScaffoldFile PathExpression="Crawler\\.*" />
+  <ScaffoldFile PathExpression="Properties\\.*" />
+  <ScaffoldFile PathExpression="Scripts\\.*" />
+  <ScaffoldFile PathExpression="Views\\.*" />
+
+  <ScaffoldFile Path="Global.asax"/>
+  <ScaffoldFile Path="Global.asax.cs" />
+  <ScaffoldFile Path="packages.config" />
+  <ScaffoldFile Path="Web.config" />
+  <ScaffoldFile Path="Web.Debug.config" />
+  <ScaffoldFile Path="Web.Release.config" />
+</Scaffold>

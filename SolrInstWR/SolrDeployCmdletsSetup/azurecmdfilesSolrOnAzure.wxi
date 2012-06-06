@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <WixVariable Id="WixUILicenseRtf" Value="SingleClickSolrOnAzureLicensee.rtf" />
+    <DirectoryRef Id="SolrFolder">
+      <Directory Id="dir57F09D2CA8D11D083278C6AF49A43C20" Name="SolrAdminWebRole">
+        <Component Id="cmp183F3EC8AE2CE86A7B39229D236013AF" Guid="9DAEC9A5-3EB3-4FE9-B78F-2938D6845186">
+          <File Id="fil6B4CBF3991755CFDA3FD2C9D7D194012" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Global.asax" />
+        </Component>
+        <Component Id="cmp86A4C565E9E2AFCCFA5F7E9C10E54790" Guid="BA7E8967-7E9F-48BD-9B9A-8289C3DAEFF6">
+          <File Id="filCBEB60F80179B992193A2515BE9244C6" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Global.asax.cs" />
+        </Component>
+        <Component Id="cmp0CFD40122B3EA4E181DB3E97F9D6DECC" Guid="EF29E9D9-77C9-4EEA-A72A-5989EFF19A92">
+          <File Id="fil365214F514C58BE7DBF136E1F691C5D4" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\packages.config" />
+        </Component>
+        <Component Id="cmp4A168D09695DF9E0C0E7BF7D6E974E39" Guid="5DA96D03-E344-473C-AFA3-D0F926CD58B4">
+          <File Id="filA41299F0427BC93A436C21C9B7824014" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\scaffold.xml" />
+        </Component>
+        <Component Id="cmp4302357C5BEA40B08D9175BE4C8C856A" Guid="A3BA0571-A9CB-40DF-BCA1-CC95DE5CFF53">
+          <File Id="fil695EC1057EAE61C5C659C3024E3B8B06" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Web.config" />
+        </Component>
+        <Component Id="cmpD8CF5FA7C19D21F6CF863D49C6A2D1D5" Guid="3A43C34F-1725-40A2-8108-B929AABEFEC7">
+          <File Id="fil8A12F4F48950B49EFD095CA624558F2F" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Web.Debug.config" />
+        </Component>
+        <Component Id="cmpE346291861E96244F59D30D5DA0C1A07" Guid="445C57FE-2961-4B20-8C5A-3A911D961889">
+          <File Id="filD3D50C9C9A6A03269D6B9B9094EB62CB" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Web.Release.config" />
+        </Component>
+        <Directory Id="dir2A26E487FBF98661E3325EBC3D4C45FE" Name="bin">
+          <Component Id="cmpA0588845C4C11539445F9C1EFD70EADA" Guid="7E89F88D-39F7-4A27-8ED2-66515E80B3F4">
+            <File Id="filE8C886379C8360F040E904E2BB128E64" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\HelperLib.dll" />
+          </Component>
+          <Component Id="cmp3770919FAA5701451CFA5E2A296DC92D" Guid="435B5C9C-B79A-43EB-9C1E-2A310825ABA4">
+            <File Id="filF0043EF534BB835A63A834BD4D15066A" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\Microsoft.Web.Infrastructure.dll" />
+          </Component>
+          <Component Id="cmp229557EC47758524C75C2F45372F2AB9" Guid="1A6056E7-88AB-4FEF-9633-E35B557427E3">
+            <File Id="filF89688FAE3787DF050BEBBD1577B3A14" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\Microsoft.Web.Infrastructure.xml" />
+          </Component>
+          <Component Id="cmp75E6D3F035D43C5C0AA4A77F614B5493" Guid="4E75128E-E708-48DA-89B8-F7219BDB8B16">
+            <File Id="fil21D5205E6E403CA22DAC085EFC6C0E46" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\Microsoft.WindowsAzure.Diagnostics.dll" />
+          </Component>
+          <Component Id="cmp8F7DC34CE97F567489BB2223D281CEFF" Guid="8E3D279F-B1B3-4927-9AD6-29A5626E3030">
+            <File Id="filF3952DEEB0590361279787D38BC51B4F" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\Microsoft.WindowsAzure.Diagnostics.xml" />
+          </Component>
+          <Component Id="cmp5319CB7DC38798866247023C06110FB1" Guid="26EEFD7A-6B5C-462F-A3A3-7786CD2FC3F6">
+            <File Id="fil81A4369E9D50E934DF46823E285C7751" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\Microsoft.WindowsAzure.StorageClient.dll" />
+          </Component>
+          <Component Id="cmp3A59BD69456E6ADD52C0478377F1471F" Guid="07F439AC-D4B4-457B-82AE-A671243118DC">
+            <File Id="filC5FA351E1F63C3F0050E1C0875DF92BE" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\Microsoft.WindowsAzure.StorageClient.xml" />
+          </Component>
+          <Component Id="cmp15470664398729CA87E439A3D1245C4D" Guid="92F3F22F-F690-4337-A518-6437A1B80D30">
+            <File Id="filF58ACF3CC8A435710832C9C70ED8CD10" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\SolrAdminWebRole.dll" />
+          </Component>
+          <Component Id="cmp5D5D564357C523157FB7A4C86196BA89" Guid="4E4FD2BC-3037-4346-A8DC-E746A05BFC76">
+            <File Id="fil03CC47EC699CF8FD1D5661DB601FA8B4" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\System.Web.Helpers.dll" />
+          </Component>
+          <Component Id="cmpEAF783F8E82202C07CA9A112ABA13262" Guid="728E3F58-85FD-475C-BF66-994A33DECF31">
+            <File Id="fil6B87C7ECBB9171488A420E367E3EE0A2" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\System.Web.Helpers.xml" />
+          </Component>
+          <Component Id="cmpD4CA86D46FC3C28B65C3360D796446A0" Guid="AF944310-F100-448B-8D77-3851653D2AD1">
+            <File Id="filCA1AACC744C7D2AFCD4E2AFFD25D0330" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\System.Web.Mvc.dll" />
+          </Component>
+          <Component Id="cmp375B91AA4DA0F6A776949E1589596C3B" Guid="AA0045C6-F269-45FE-8616-6936B3B32C1C">
+            <File Id="fil7ADE39F0B4FC7489D62DDF887AC3F6E2" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\System.Web.Mvc.xml" />
+          </Component>
+          <Component Id="cmpCF6F8D8088305D27AB1150183D581D96" Guid="ADBABFBC-14C5-47A3-9DA5-93D1F4125804">
+            <File Id="fil37225092432D74D72C7953058653A81C" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\System.Web.Razor.dll" />
+          </Component>
+          <Component Id="cmp6441AA555FF67F242CD9BA8F5F1B1202" Guid="11857BDB-56B3-4637-A00A-D7EF7DEA107E">
+            <File Id="filB0770C351898F3F90B7C828E372D9076" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\System.Web.Razor.xml" />
+          </Component>
+          <Component Id="cmp1D8837F32D0819BC3DC11F06DE9F0DAF" Guid="42F3E39B-D84F-47AD-A070-71DA341A2BFB">
+            <File Id="filD8426B57FD7D0C266863D9E3FBAE309A" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\System.Web.WebPages.Deployment.dll" />
+          </Component>
+          <Component Id="cmp442486707526A963000C67162B66F9B4" Guid="C04DDB85-0023-4DB4-B49B-C9A9326DC5C4">
+            <File Id="fil2EAC5A4D65EDB9B5B3863B98E9F90A29" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\System.Web.WebPages.Deployment.xml" />
+          </Component>
+          <Component Id="cmpB784DE42554A6A1B45C7C0DDFBCF205E" Guid="BECDAE4D-3A7B-45E5-96DD-B0A081915ABF">
+            <File Id="fil30B191EAA92B348827A7869BDF06985D" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\System.Web.WebPages.dll" />
+          </Component>
+          <Component Id="cmpC5A5073F6B7056B74B020AA618DD7FF8" Guid="AC0DBE50-DB8E-46E5-B1A3-1F60FFEB8577">
+            <File Id="filAB232CDCDF3BE501498430E8A54920BA" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\System.Web.WebPages.Razor.dll" />
+          </Component>
+          <Component Id="cmp2B325A471E6859FADF7C3FEC6BF1DF90" Guid="259F7DB5-26FB-4E96-BCE9-EC34CDEB6419">
+            <File Id="fil9053642A35EA3C867602DC9A0A96B2E0" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\System.Web.WebPages.Razor.xml" />
+          </Component>
+          <Component Id="cmp59474A1146FF98DF52EE18B2D68A97E6" Guid="F7665636-9638-4CDE-96F9-DA4B016C472F">
+            <File Id="filF4E91811EBFD1FF678B294FE9C510527" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\System.Web.WebPages.xml" />
+          </Component>
+        </Directory>
+        <Directory Id="dir3ED234CE91D40DE1F20E20EB70BD8E4B" Name="Content">
+          <Component Id="cmp983EB8A37808955788ABA8512AB9AF7B" Guid="D46FBE01-94BF-4139-83F1-0BF45AC63CEC">
+            <File Id="fil93BAEE99A5EA88B9AC174731269D3BB6" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Content\Site.css" />
+          </Component>
+        </Directory>
+        <Directory Id="dir4FD9BC9202BB8A01698A06A8954E8D2F" Name="Controllers">
+          <Component Id="cmp563D9D3BFF9C9F8C9116113FD4C941F7" Guid="A0719D48-EFD7-41AF-B64C-6904C537E085">
+            <File Id="filE6A057AA1D554A133C3A2AACA39932FD" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Controllers\HomeController.cs" />
+          </Component>
+        </Directory>
+        <Directory Id="dirCE4845D9351102B79E01551F9A12537E" Name="Crawler">
+          <Component Id="cmp813039BE419DE9563E3E1718352F6BB5" Guid="34AA655A-608E-493F-8073-909C4073DCDB">
+            <File Id="filFE016A6DC237402A09BBBCFA3734E17B" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Crawler\Crawler.cs" />
+          </Component>
+          <Component Id="cmpB61AF7C4186F62D08AD2FEB3753F5739" Guid="A2960F17-659E-4530-BEA0-E3CA9DE9A78A">
+            <File Id="filCFD637EADB3CD93177C6B38ED13E7F8A" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Crawler\CrawlerHistory.cs" />
+          </Component>
+          <Component Id="cmp6FABEDDF094FF6C6C4D0E61FAFB941C9" Guid="1C79DE22-1840-4629-9ED0-F8E7A958F127">
+            <File Id="fil375097D7E74CECBCA4BB3920AD1A8542" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Crawler\CurrentPageContentEventArgs.cs" />
+          </Component>
+          <Component Id="cmp1E9F5715167BE09D6E4000EDB1928C8F" Guid="8D9C6826-FA4F-4D42-B417-1B337ADAC522">
+            <File Id="fil651CAE19FCC9ABDD01363D746BDBEFC5" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Crawler\LinkInfo.cs" />
+          </Component>
+        </Directory>
+        <Directory Id="dir9A210C1901936EA1B44CF562F00C53AB" Name="Properties">
+          <Component Id="cmp4E1BF6C67726DC953AD1A7F02435F85D" Guid="FA098E6F-EAB3-49A9-86A6-4A7130001B14">
+            <File Id="filB62379CF776055E5393A92E666F5FB86" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Properties\AssemblyInfo.cs" />
+          </Component>
+        </Directory>
+        <Directory Id="dir496061CCE74CBA176B08B5BBE6EE1FDF" Name="Scripts">
+          <Component Id="cmp1864AC7182C3B284C889ACEB68E0C358" Guid="03C6357A-29D8-412A-8312-E5E52923DC8F">
+            <File Id="fil90EF707DDCF6146B609FE08F02F5C4CD" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Scripts\XHRHelper.js" />
+          </Component>
+        </Directory>
+        <Directory Id="dir88FA4EE5782D821683CACC8C24BF9728" Name="Views">
+          <Component Id="cmp33CE4BF1499AAD3DD52A13AB612C9EB1" Guid="41BAA8BB-D05C-4C51-A1BC-932FE8C296BF">
+            <File Id="fil07450050002B9B72EAA62BAE4651AACB" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Views\Web.config" />
+          </Component>
+          <Component Id="cmp56FDAC2FAEB2DB306565372BF1185640" Guid="D99937EB-065B-4EF9-85C4-55D72E10A855">
+            <File Id="filFFE90221878F08C6C44A26C6B515188A" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Views\_ViewStart.cshtml" />
+          </Component>
+          <Directory Id="dir23F0FCE903D0068AF252902E8F864276" Name="Home">
+            <Component Id="cmp08F402B53618BA376AC63B8D9095120B" Guid="B1BE51F8-1ED1-4FE2-B0DF-7A1366E9E202">
+              <File Id="filCE8F779F86A7E7370459867E3C7FDCEE" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Views\Home\About.cshtml" />
+            </Component>
+            <Component Id="cmpF6C590B50709D6F0E94FB7A313920E05" Guid="4EC6C3D4-3330-468F-9429-8276BC8252E1">
+              <File Id="fil64CC36D53827EF57C509FBECD02A1C3A" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Views\Home\Crawl.cshtml" />
+            </Component>
+            <Component Id="cmp25C8004629606C6C30D5891FE0324BC3" Guid="12F14583-EE17-46DB-914C-07EB5AFE3B68">
+              <File Id="fil0FEF3C5A4CE4D0BE53E76A6584BF0439" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Views\Home\Import.cshtml" />
+            </Component>
+            <Component Id="cmpB54FECB58F9290924978FBC06EB84230" Guid="3B0DFB34-8E71-4CA0-A79D-2842148EFCEF">
+              <File Id="fil793B8C7AF827E77A84E4D6DA919A1126" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Views\Home\Index.cshtml" />
+            </Component>
+            <Component Id="cmp57CAC69C44A835E8CB516CC9926E532A" Guid="27EEB4E2-218E-4BE8-89C7-C92614C49AD4">
+              <File Id="filA3AEAC2CC746B66F7B98B904273C655D" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Views\Home\Search.cshtml" />
+            </Component>
+            <Component Id="cmpCA094C4DF1BA23E90A701B9DBA16EA97" Guid="31239E72-A6F9-44DB-A8FF-0C4546CF94DB">
+              <File Id="filE6E36C6CA6BB1647A410F22258917CEC" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Views\Home\SolrAdmin.cshtml" />
+            </Component>
+          </Directory>
+          <Directory Id="dir9F01F8159B3744F57EDA36A9747498EF" Name="Shared">
+            <Component Id="cmp9479BA2BF69F339D674598A895D8560B" Guid="3FB2FB67-0B45-45AA-8382-46B4487B0FAA">
+              <File Id="filC32EACB5B63A15B4ECA24A12D469D185" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Views\Shared\Error.cshtml" />
+            </Component>
+            <Component Id="cmp63F82413B1F6D63E4D913A61C3DE7FEB" Guid="03804488-7F4E-4AC8-95C4-4FB0BF4DF45B">
+              <File Id="fil933FC054F6E9A6E8156B4843E44747A6" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Views\Shared\_Layout.cshtml" />
+            </Component>
+            <Component Id="cmp113DC671D33CCD1BED1CE813B93E9A58" Guid="5DCB2779-3800-4532-80D8-682EE861B201">
+              <File Id="fil16F87117F25805CB28FEB0CC6923903C" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Views\Shared\_Layout2.cshtml" />
+            </Component>
+            <Component Id="cmp85092294E1DB3BB6DAD818AC126FE512" Guid="2E0A7479-6A8D-4173-8E8C-B1376058D86F">
+              <File Id="filA47408764553E85BC59FD96FF29D184D" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Views\Shared\_LogOnPartial.cshtml" />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+      <Directory Id="dir37D201834A93A10574D3D55325DE3D97" Name="SolrMasterHostWorkerRole">
+        <Component Id="cmpF7EFDF4600F95AE045894B380602B558" Guid="E9F8F949-7C48-4D0C-A0A1-2E84F01E3A43">
+          <File Id="filA54DBF9A1FB456A8ED6D3F2451FFB850" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrMasterHostWorkerRole\HelperLib.dll" />
+        </Component>
+        <Component Id="cmp2B1129FB62A2ADE844970A5EF6637E74" Guid="D3C2648A-5C1F-478A-9600-553BB3C9E1A3">
+          <File Id="filD779A5F67C563D0DDA02416769C830DE" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrMasterHostWorkerRole\Microsoft.WindowsAzure.CloudDrive.dll" />
+        </Component>
+        <Component Id="cmp870425764DCBA1274B2EF8666B240766" Guid="6C13E705-A933-4C98-95E2-076285B73394">
+          <File Id="filC5DD86FA916453D68BF136624231D362" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrMasterHostWorkerRole\Microsoft.WindowsAzure.Diagnostics.dll" />
+        </Component>
+        <Component Id="cmpC85003C16658753B295081F7F5DE54CF" Guid="6CD099B0-AE4C-4E4B-8031-C833BAD09B2E">
+          <File Id="fil49CCBA33E48C0B1A741F0612B4262A7D" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrMasterHostWorkerRole\Microsoft.WindowsAzure.StorageClient.dll" />
+        </Component>
+        <Component Id="cmp5E2AE2EF7D040AFB2E54E40EADED45B6" Guid="C107A292-3732-44FD-AE67-A5AE0E1F4B48">
+          <File Id="fil86397A92D485B76A51AC1B79977DCE22" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrMasterHostWorkerRole\scaffold.xml" />
+        </Component>
+        <Component Id="cmpD2019537F0E405FBEABF826A238D2531" Guid="399AE724-CA60-43AB-8F78-A98D600ED752">
+          <File Id="filD235748556292D1AD8AF729160AEB9BC" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrMasterHostWorkerRole\SolrMasterHostWorkerRole.dll" />
+        </Component>
+        <Component Id="cmp3886CC11B8C771BFFB42F095E0BB30D8" Guid="B1E419CE-3254-4869-8D19-E9A2ACA46ABE">
+          <File Id="fil62D6B444591F14B561BF4B069CE1ABB4" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrMasterHostWorkerRole\SolrMasterHostWorkerRole.dll.config" />
+        </Component>
+        <Directory Id="dirEE961F514B9FF3D570335A60B5C78061" Name="SolrFiles">
+          <Component Id="cmpDD994D3B6BB45E956E082F6B6AD454DD" Guid="48337C8F-A604-423B-8D16-96AA0FBEB6EE">
+            <File Id="filFA94A1DB1A01CC6A8B3D24D560D3D5E6" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrMasterHostWorkerRole\SolrFiles\data-config.xml" />
+          </Component>
+          <Component Id="cmp7A8637F10E096AAC99E055D1E798FDBA" Guid="AEC80329-9509-46F3-A2EE-57EA4B2EBD48">
+            <File Id="filAFE682E65D1422726108B767D9E6531F" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrMasterHostWorkerRole\SolrFiles\schema.xml" />
+          </Component>
+          <Component Id="cmpA30D3057057607772A16B87AC3368BEE" Guid="86F1DFE5-A47A-4749-A883-263C4AE17941">
+            <File Id="fil71CF948EF3A6FD2276959B8EFC67573D" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrMasterHostWorkerRole\SolrFiles\solrconfig.xml" />
+          </Component>
+        </Directory>
+      </Directory>
+      <Directory Id="dirC0EFA55152DC9A7FD0A198D88BE92D32" Name="SolrSlaveHostWorkerRole">
+        <Component Id="cmp9D4516D95424F130A99876FD4D447DE5" Guid="24B0BCE2-6AEE-48F8-A092-226E47599A48">
+          <File Id="filCD4409F24B144C16C6EF277AEAE70AC9" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrSlaveHostWorkerRole\HelperLib.dll" />
+        </Component>
+        <Component Id="cmp4DB47A5F63C7317F0E4112B458ED8AAB" Guid="622859E3-6151-47CF-8254-711E19B4BAED">
+          <File Id="fil661B2856651BD588F46A391DD59364EA" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrSlaveHostWorkerRole\Microsoft.WindowsAzure.CloudDrive.dll" />
+        </Component>
+        <Component Id="cmpFE0F2A1BEDD5AADCAB65BFCBBE2221D9" Guid="0328AC94-6DE2-40C0-BE7D-E46F4BFFAF4B">
+          <File Id="fil872E539A1F7ED8A9CA5A3EFF922052E5" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrSlaveHostWorkerRole\Microsoft.WindowsAzure.Diagnostics.dll" />
+        </Component>
+        <Component Id="cmp9198DBFB7F6653E691BBA338B3964A0D" Guid="52E79B75-3E96-4FAC-A3BF-B03EC8D4D223">
+          <File Id="filA96EE1A74DC84CE64BB3F49F740D96A6" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrSlaveHostWorkerRole\Microsoft.WindowsAzure.StorageClient.dll" />
+        </Component>
+        <Component Id="cmp08FD005CC3B0F718F1FBF86A644BC176" Guid="19261F75-942B-4110-B3BF-53150D4A829F">
+          <File Id="filF730E9967099645847AEB9318AAA48FA" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrSlaveHostWorkerRole\scaffold.xml" />
+        </Component>
+        <Component Id="cmp46ACA5AC080AC5A47E4C544763501F0A" Guid="8947BF0F-4FFC-4C30-A88C-6322778F59BF">
+          <File Id="fil7F38BD3A5A347A7E2569F929B8FCC3C6" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrSlaveHostWorkerRole\SolrSlaveHostWorkerRole.dll" />
+        </Component>
+        <Component Id="cmpD58D592E68612DEDBD5186561544C49A" Guid="3314D910-FA52-4177-B9CB-452A156BD172">
+          <File Id="fil23D6CA3DC507931E2786DEC3935A8080" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrSlaveHostWorkerRole\SolrSlaveHostWorkerRole.dll.config" />
+        </Component>
+        <Directory Id="dirC09B20AC85E25A07A43B65A4DF455D2C" Name="SolrFiles">
+          <Component Id="cmp8973C10F2F874199DE42C82C6F3444A6" Guid="CB1E1134-90D6-4C86-B909-CDD28CB3BBF4">
+            <File Id="fil9768DF0C23278357A3D6AADC09D6EE63" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrSlaveHostWorkerRole\SolrFiles\data-config.xml" />
+          </Component>
+          <Component Id="cmp1C103218C8D29F4214CB0E65737D2AF7" Guid="C9A2FB48-1B88-4F71-8A93-4EEE64F48445">
+            <File Id="fil501560080333F3DF784BBA50CEBEBE9F" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrSlaveHostWorkerRole\SolrFiles\schema.xml" />
+          </Component>
+          <Component Id="cmp4CB11C13F1A7D97BF9DEE275FE035FB8" Guid="0EA471DB-9A09-4977-8472-A7AB470F3857">
+            <File Id="fil648B280611C612FA269F12E3F71ED4C1" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrSlaveHostWorkerRole\SolrFiles\solrconfig.xml" />
+          </Component>
+        </Directory>
+      </Directory>
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <ComponentGroup Id="azurecmdfilesSolrOnAzure">
+      <ComponentRef Id="cmp183F3EC8AE2CE86A7B39229D236013AF" />
+      <ComponentRef Id="cmp86A4C565E9E2AFCCFA5F7E9C10E54790" />
+      <ComponentRef Id="cmp0CFD40122B3EA4E181DB3E97F9D6DECC" />
+      <ComponentRef Id="cmp4A168D09695DF9E0C0E7BF7D6E974E39" />
+      <ComponentRef Id="cmp4302357C5BEA40B08D9175BE4C8C856A" />
+      <ComponentRef Id="cmpD8CF5FA7C19D21F6CF863D49C6A2D1D5" />
+      <ComponentRef Id="cmpE346291861E96244F59D30D5DA0C1A07" />
+      <ComponentRef Id="cmpA0588845C4C11539445F9C1EFD70EADA" />
+      <ComponentRef Id="cmp3770919FAA5701451CFA5E2A296DC92D" />
+      <ComponentRef Id="cmp229557EC47758524C75C2F45372F2AB9" />
+      <ComponentRef Id="cmp75E6D3F035D43C5C0AA4A77F614B5493" />
+      <ComponentRef Id="cmp8F7DC34CE97F567489BB2223D281CEFF" />
+      <ComponentRef Id="cmp5319CB7DC38798866247023C06110FB1" />
+      <ComponentRef Id="cmp3A59BD69456E6ADD52C0478377F1471F" />
+      <ComponentRef Id="cmp15470664398729CA87E439A3D1245C4D" />
+      <ComponentRef Id="cmp5D5D564357C523157FB7A4C86196BA89" />
+      <ComponentRef Id="cmpEAF783F8E82202C07CA9A112ABA13262" />
+      <ComponentRef Id="cmpD4CA86D46FC3C28B65C3360D796446A0" />
+      <ComponentRef Id="cmp375B91AA4DA0F6A776949E1589596C3B" />
+      <ComponentRef Id="cmpCF6F8D8088305D27AB1150183D581D96" />
+      <ComponentRef Id="cmp6441AA555FF67F242CD9BA8F5F1B1202" />
+      <ComponentRef Id="cmp1D8837F32D0819BC3DC11F06DE9F0DAF" />
+      <ComponentRef Id="cmp442486707526A963000C67162B66F9B4" />
+      <ComponentRef Id="cmpB784DE42554A6A1B45C7C0DDFBCF205E" />
+      <ComponentRef Id="cmpC5A5073F6B7056B74B020AA618DD7FF8" />
+      <ComponentRef Id="cmp2B325A471E6859FADF7C3FEC6BF1DF90" />
+      <ComponentRef Id="cmp59474A1146FF98DF52EE18B2D68A97E6" />
+      <ComponentRef Id="cmp983EB8A37808955788ABA8512AB9AF7B" />
+      <ComponentRef Id="cmp563D9D3BFF9C9F8C9116113FD4C941F7" />
+      <ComponentRef Id="cmp813039BE419DE9563E3E1718352F6BB5" />
+      <ComponentRef Id="cmpB61AF7C4186F62D08AD2FEB3753F5739" />
+      <ComponentRef Id="cmp6FABEDDF094FF6C6C4D0E61FAFB941C9" />
+      <ComponentRef Id="cmp1E9F5715167BE09D6E4000EDB1928C8F" />
+      <ComponentRef Id="cmp4E1BF6C67726DC953AD1A7F02435F85D" />
+      <ComponentRef Id="cmp1864AC7182C3B284C889ACEB68E0C358" />
+      <ComponentRef Id="cmp33CE4BF1499AAD3DD52A13AB612C9EB1" />
+      <ComponentRef Id="cmp56FDAC2FAEB2DB306565372BF1185640" />
+      <ComponentRef Id="cmp08F402B53618BA376AC63B8D9095120B" />
+      <ComponentRef Id="cmpF6C590B50709D6F0E94FB7A313920E05" />
+      <ComponentRef Id="cmp25C8004629606C6C30D5891FE0324BC3" />
+      <ComponentRef Id="cmpB54FECB58F9290924978FBC06EB84230" />
+      <ComponentRef Id="cmp57CAC69C44A835E8CB516CC9926E532A" />
+      <ComponentRef Id="cmpCA094C4DF1BA23E90A701B9DBA16EA97" />
+      <ComponentRef Id="cmp9479BA2BF69F339D674598A895D8560B" />
+      <ComponentRef Id="cmp63F82413B1F6D63E4D913A61C3DE7FEB" />
+      <ComponentRef Id="cmp113DC671D33CCD1BED1CE813B93E9A58" />
+      <ComponentRef Id="cmp85092294E1DB3BB6DAD818AC126FE512" />
+      <ComponentRef Id="cmpF7EFDF4600F95AE045894B380602B558" />
+
+      <ComponentRef Id="cmp2B1129FB62A2ADE844970A5EF6637E74" />
+      <ComponentRef Id="cmp870425764DCBA1274B2EF8666B240766" />
+      <ComponentRef Id="cmpC85003C16658753B295081F7F5DE54CF" />
+      <ComponentRef Id="cmp5E2AE2EF7D040AFB2E54E40EADED45B6" />
+
+      <ComponentRef Id="cmpD2019537F0E405FBEABF826A238D2531" />
+      <ComponentRef Id="cmp3886CC11B8C771BFFB42F095E0BB30D8" />
+      <ComponentRef Id="cmpDD994D3B6BB45E956E082F6B6AD454DD" />
+      <ComponentRef Id="cmp7A8637F10E096AAC99E055D1E798FDBA" />
+      <ComponentRef Id="cmpA30D3057057607772A16B87AC3368BEE" />
+      <ComponentRef Id="cmp9D4516D95424F130A99876FD4D447DE5" />
+      <ComponentRef Id="cmp4DB47A5F63C7317F0E4112B458ED8AAB" />
+      <ComponentRef Id="cmpFE0F2A1BEDD5AADCAB65BFCBBE2221D9" />
+      <ComponentRef Id="cmp9198DBFB7F6653E691BBA338B3964A0D" />
+      <ComponentRef Id="cmp08FD005CC3B0F718F1FBF86A644BC176" />
+
+      <ComponentRef Id="cmp46ACA5AC080AC5A47E4C544763501F0A" />
+      <ComponentRef Id="cmpD58D592E68612DEDBD5186561544C49A" />
+      <ComponentRef Id="cmp8973C10F2F874199DE42C82C6F3444A6" />
+      <ComponentRef Id="cmp1C103218C8D29F4214CB0E65737D2AF7" />
+      <ComponentRef Id="cmp4CB11C13F1A7D97BF9DEE275FE035FB8" />
+    </ComponentGroup>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="MicrosoftPowerShellFolder">
+      <Component Id="cmpB6707D9E5C5ECFDB681C5ED9BA39481D" Guid="8A37CC4D-5BB5-4910-BA62-78AD3B3D6499">
+        <File Id="filA37AAB894F245EF5B743B4A1E32AA740" KeyPath="yes" Source="$(var.sourcedir)\SolrDeployCmdlets.dll" />
+      </Component>
+      <?if $(var.Configuration) = Debug ?>
+      <Component Id="cmpC5013DFAE347841203A100925AE043EC" Guid="EE8E2E32-FD05-4950-B96F-41A268F4F750">
+        <File Id="filFCA96DC56A33A420880761B50C78CB1B" KeyPath="yes" Source="$(var.sourcedir)\SolrDeployCmdlets.pdb" />
+      </Component>
+      <?endif?>
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <ComponentGroup Id="azurecmdfilesMicrosoft">
+      <ComponentRef Id="cmpB6707D9E5C5ECFDB681C5ED9BA39481D" />
+      <?if $(var.Configuration) = Debug ?>
+      <ComponentRef Id="cmpC5013DFAE347841203A100925AE043EC" />
+      <?endif?>
+    </ComponentGroup>
+  </Fragment>
+</Include>
