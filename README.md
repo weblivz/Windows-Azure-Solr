@@ -28,7 +28,7 @@ You are responsible for and must locate and read the license terms for each of t
 2. Launch a command prompt (cmd.exe) as an administrator and cd to the local folder selected above
 
 ## Run the installer:
-    - Inst4WA.exe -XmlConfigPath <yourpath>/CouchDBInstWR.xml -DomainName <youruniquename>  -Subscription "bar"
+    - Inst4WA.exe -XmlConfigPath <yourpath>/CouchDBInstWR.xml -DomainName <youruniquename>  -Subscription <yoursubscription>
 
 
 Note: While the installer is running, it will open a browser to download your publish settings file. Save this file to either your downloads folder or the SolrInstaller folder. You must save the file in one of those two locations for the installer to see it and import the settings.
