@@ -24,8 +24,9 @@ You are responsible for and must locate and read the license terms for each of t
 5. Note if you start with a clean machine:  To download public setting file the enhanced security configuration of IE needs to be disabled. Go to Server Manager -> configure IE ESC -> disable for Administrators.
 
 ## Copy the binaries
-1. Download and extract on your local computer the SolrInstWR.zip from https://github.com/MSOpenTech/Windows-Azure-Solr/downloads
-2. Launch a command prompt (cmd.exe) as an administrator and cd to the local folder selected above
+1. Download and extract on your local computer the latest version SolrInstWRMMDDYYYY.zip (for example SolrInstWR06072012.zip) from https://github.com/MSOpenTech/Windows-Azure-Solr/downloads
+2. Copy the SolrInstWR.msi to your local web root. For example c:\inetpub\wwwroot
+3. Launch a command prompt (cmd.exe) as an administrator and cd to the local folder selected above
 
 ## Run the installer:
     - Inst4WA.exe -XmlConfigPath <yourpath>/SolrInstWR.xml -DomainName <youruniquename>  -Subscription <yoursubscription>
