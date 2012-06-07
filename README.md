@@ -38,7 +38,7 @@ Do not write your publish settings over an existing file. The installer will be 
 
 In the panel for your deployment you will find the DNS name `http://<Deployment_Endpoint>.cloudapp.net`
 
-Start in a browser `http://<Deployment_Endpoint>.cloudapp.net` to the typical tasks for Solr
-Crawl or Import data from the sample Windows Azure blob in the Crawl or Import tabs
-Validate that the index is replicated across SolrSlave  instances on the Home tab by checking the index size.
-After the index is replicated execute a search in the Search tab
+- Start in a browser `http://<Deployment_Endpoint>.cloudapp.net` to the typical tasks for Solr
+- Crawl or Import data from the sample Windows Azure blob in the Crawl or Import tabs
+- Validate that the index is replicated across SolrSlave  instances on the Home tab by checking the index size.
+- After the index is replicated execute a search in the Search tab
