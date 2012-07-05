@@ -25,9 +25,13 @@ using System.IO;
 using System.Xml.Serialization;
 using SolrDeployCmdlets.Properties;
 using Microsoft.Win32;
-using AzureDeploymentCmdlets.Utilities;
+//using AzureDeploymentCmdlets.Utilities;
 using System.Security.Cryptography.X509Certificates;
 using System.Reflection;
+using SolrDeployCmdlets.ServiceConfigurationSchema;
+using SolrDeployCmdlets.ServiceDefinitionSchema;
+using System.Linq;
+using Microsoft.WindowsAzure.Management.CloudService.Utilities;
 
 namespace SolrDeployCmdlets.Utilities
 {
@@ -106,8 +110,7 @@ namespace SolrDeployCmdlets.Utilities
         {
             return (new Random(DateTime.Now.Millisecond).Next(2) == 0) ? first : second;
         }
-
-
+        
         public static General Instance
         {
             get
@@ -191,6 +194,31 @@ namespace SolrDeployCmdlets.Utilities
             X509Store store = new X509Store(StoreName.My, System.Security.Cryptography.X509Certificates.StoreLocation.CurrentUser);
             store.Open(OpenFlags.ReadWrite);
             store.Remove(certificate);
+        }
+        
+        public static int TryGetWorkerRoleEndPointPort(ServiceDefinition svcDef, string endPointName)
+        {
+            WorkerRole[] allWorkerRoles = svcDef.WorkerRole;
+            if (allWorkerRoles == null || allWorkerRoles.Length == 0)
+            {
+                return 0;
+            }
+            int masterEndPointPort = 0;
+            foreach (WorkerRole eachWorkerRole in allWorkerRoles)
+            {
+                if (eachWorkerRole.Endpoints == null || eachWorkerRole.Endpoints.InputEndpoint == null)
+                {
+                    continue;
+                }
+                InputEndpoint[] allEndPoints = eachWorkerRole.Endpoints.InputEndpoint;
+                InputEndpoint masterEndPoint = allEndPoints.Where(e => e.name == endPointName).FirstOrDefault();
+                if (masterEndPoint != null)
+                {
+                    masterEndPointPort = masterEndPoint.port;
+                    break;
+                }
+            }
+            return masterEndPointPort;
         }
     }
 }

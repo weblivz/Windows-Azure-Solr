@@ -79,7 +79,25 @@ namespace DeployCmdlets4WA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://go.microsoft.com/?linkid=9752821.
+        ///   Looks up a localized string similar to Cannot find setup file at download location..
+        /// </summary>
+        internal static string InvalidDownloadLocMessage {
+            get {
+                return ResourceManager.GetString("InvalidDownloadLocMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid XmlConfigPath..
+        /// </summary>
+        internal static string InvalidXmlConfigPath {
+            get {
+                return ResourceManager.GetString("InvalidXmlConfigPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://go.microsoft.com/fwlink/?LinkId=233753.
         /// </summary>
         internal static string WebPICmdlineURL {
             get {

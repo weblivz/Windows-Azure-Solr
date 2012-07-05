@@ -25,9 +25,12 @@ using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using SolrDeployCmdlets.Properties;
 using SolrDeployCmdlets.Utilities;
-using AzureDeploymentCmdlets.PublishSettingsSchema;
-using AzureDeploymentCmdlets.Model;
-using AzureDeploymentCmdlets.Utilities;
+//using AzureDeploymentCmdlets.PublishSettingsSchema;
+//using AzureDeploymentCmdlets.Model;
+//using AzureDeploymentCmdlets.Utilities;
+using Microsoft.WindowsAzure.Management.CloudService.PublishSettingsSchema;
+using Microsoft.WindowsAzure.Management.CloudService.Model;
+using Microsoft.WindowsAzure.Management.CloudService.Utilities;
 
 namespace SolrDeployCmdlets.Model
 {

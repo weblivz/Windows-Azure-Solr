@@ -25,27 +25,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Management.Automation;
-using AzureDeploymentCmdlets.WAPPSCmdlet;
+//using AzureDeploymentCmdlets.WAPPSCmdlet;
 using SolrDeployCmdlets.Utilities;
 using SolrDeployCmdlets.ServiceConfigurationSchema;
 using SolrDeployCmdlets.ServiceDefinitionSchema;
 using System.Security.Permissions;
-using AzureDeploymentCmdlets.Model;
+//using AzureDeploymentCmdlets.Model;
 using SolrDeployCmdlets.Model;
 using System.ServiceModel;
 using SolrDeployCmdlets.Properties;
+using System.Text.RegularExpressions;
+using Microsoft.WindowsAzure.Management.Cmdlets.Common;
+using Microsoft.WindowsAzure.Management.CloudService.Model;
+using Microsoft.WindowsAzure.Management.CloudService.WAPPSCmdlet;
+using Microsoft.WindowsAzure.Management.CloudService.Services;
 
 namespace SolrDeployCmdlets.Solr.Cmdlet
 {
     [Cmdlet(VerbsCommon.Set, "AzureSolrStorageAccount")]
-    public class SetAzureSolrStorageAccountCommand : ServiceManagementCmdletBase
+    public class SetAzureSolrStorageAccountCommand : DeploymentServiceManagementCmdletBase
     {
+        private string _storageAccountName;
         AzureService azureService;
 
         // Storage Account is mandatory
         [Parameter(Position = 0, HelpMessage = "New Windows Azure Storage Account Name", Mandatory = true)]
         [Alias("st")]
-        public string StorageAccountName { get; set; }
+        public String StorageAccountName
+        {
+            get
+            {
+                return _storageAccountName;
+            }
+            set
+            {
+                _storageAccountName = value.ToLower(); //Storage account name can only have lowercase letters.
+            }
+        }
 
         [Parameter(Position = 2, HelpMessage = "Windows Azure Storage Account Location", Mandatory = false)]
         [Alias("l")]
@@ -79,6 +95,13 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
         {
             try
             {
+                //Validate Storage account name.
+                Regex validatePattern = new Regex("^([a-zA-z0-9]){3,24}$");
+                if(validatePattern.IsMatch(this.StorageAccountName) == false)
+                {
+                    throw new ValidationMetadataException(Resources.InvalidStorageAccountNameMessage);
+                }
+
                 base.ProcessRecord();
                 string result = this.SetSolrStorageAccountProcess(base.GetServiceRootPath());
                 WriteObject(result);
@@ -96,8 +119,8 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
             InitializeArgs(rootPath);
             if (!StorageAccountExists(this.StorageAccountName))
             {
-                CreateStorageAccount(this.StorageAccountName.ToLower(),
-                    this.StorageAccountName.ToLower(),
+                CreateStorageAccount(this.StorageAccountName,
+                    this.StorageAccountName,
                     azureService.Components.Settings.Location,
                     this.AffinityGroup);
                 WriteObject(string.Format(Resources.AzureStorageAccountCreatedMessage, this.StorageAccountName));
@@ -117,7 +140,7 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
 
             ConfigureRoleStorageAccountKeys();
 
-            return string.Format(Resources.AzureStorageAccountConfiguredForSolrRoleMessage, this.StorageAccountName.ToLower());
+            return string.Format(Resources.AzureStorageAccountConfiguredForSolrRoleMessage, this.StorageAccountName);
         }
 
         private bool ConfigureRoleStorageAccountKeys()
@@ -125,7 +148,7 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
             string primaryKey;
             string secondaryKey;
 
-            if (this.ExtractStorageKeys(this.subscriptionId, this.StorageAccountName, out primaryKey, out secondaryKey))
+            if (this.ExtractStorageKeys(this.CurrentSubscription.SubscriptionId, this.StorageAccountName, out primaryKey, out secondaryKey))
             {
                 const string cloudStorageFormat = "DefaultEndpointsProtocol={0};AccountName={1};AccountKey={2}";
                 string storageHttpKey = string.Format(cloudStorageFormat, "http", this.StorageAccountName, primaryKey);
@@ -203,7 +226,7 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
         public void CreateStorageAccount(string storageAccountName, string label, string location, string affinityGroup)
         {
             AzureStorageAccount createStorageAccount = new AzureStorageAccount();
-            createStorageAccount.Create(this.certificate, this.subscriptionId, storageAccountName, affinityGroup: affinityGroup, location: location);
+            createStorageAccount.Create(this.CurrentSubscription.Certificate, this.CurrentSubscription.SubscriptionId, storageAccountName, affinityGroup: affinityGroup, location: location);
         }
 
         public void InitializeArgs(string rootPath)
@@ -211,7 +234,7 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
             azureService = new AzureService(rootPath, null);
             azureService.Components.Settings.Location = SetLocation();
             azureService.Components.Settings.Subscription = new GlobalComponents(GlobalPathInfo.GlobalSettingsDirectory).GetSubscriptionId(Subscription);
-            this.subscriptionId = azureService.Components.Settings.Subscription;
+            this.CurrentSubscription.SubscriptionId = azureService.Components.Settings.Subscription;
 
             // Issue #101: what to do in case of having empty storage account name?
             azureService.Components.Settings.StorageAccountName = SetStorageAccountName();
@@ -232,9 +255,9 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
                         // Randomly use "North Central US" or "South Central US"
                         //
                         int randomLocation = General.GetRandomFromTwo(
-                            (int)AzureDeploymentCmdlets.Model.Location.NorthCentralUS,
-                            (int)AzureDeploymentCmdlets.Model.Location.SouthCentralUS);
-                        return ArgumentConstants.Locations[(AzureDeploymentCmdlets.Model.Location)randomLocation];
+                            (int)Microsoft.WindowsAzure.Management.CloudService.Model.Location.NorthCentralUS,
+                            (int)Microsoft.WindowsAzure.Management.CloudService.Model.Location.SouthCentralUS);
+                        return ArgumentConstants.Locations[(Microsoft.WindowsAzure.Management.CloudService.Model.Location)randomLocation];
                     }
                     else
                     {
@@ -278,7 +301,7 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
             {
                 // User have specified storage account name for this particular publish
                 //
-                return StorageAccountName.ToLower();
+                return StorageAccountName;
             }
         }
     }

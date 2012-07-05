@@ -130,7 +130,7 @@
     <value>Windows Azure SDK/v1.6/bin</value>
   </data>
   <data name="AzureSdkDirectoryName" xml:space="preserve">
-    <value>Windows Azure SDK Deployment Cmdlets</value>
+    <value>Windows Azure Powershell</value>
   </data>
   <data name="AzureSdkDirectoryNotFound" xml:space="preserve">
     <value>Couldn't find {0} directory. Please run Import-AzureService -Path cmdlet to create {0} directory.</value>
@@ -146,6 +146,9 @@
   </data>
   <data name="CertificateNotFoundInStore" xml:space="preserve">
     <value>No certificate was found in the certificate store with thumbprint {0}.</value>
+  </data>
+  <data name="CloudDriveSettingName" xml:space="preserve">
+    <value>CloudDriveSize</value>
   </data>
   <data name="CreateStorageAccountWaitMessage" xml:space="preserve">
     <value>Creating storage service {0}</value>
@@ -165,6 +168,12 @@
   <data name="InvalidPublishSettingsSchema" xml:space="preserve">
     <value>The provided publish settings file {0} has invalid content. Please get valid by running cmdlet Get-AzurePublishSettings.</value>
   </data>
+  <data name="InvalidStorageAccountNameMessage" xml:space="preserve">
+    <value>Storage account names must be between 3 and 24 characters in length and use numbers and letters only.</value>
+  </data>
+  <data name="MasterRoleHostExternEndpoint" xml:space="preserve">
+    <value>SolrMasterHostWorkerRoleExternalEndpointPort</value>
+  </data>
   <data name="MasterWorkerRoleInputEndpointName" xml:space="preserve">
     <value>SolrMasterEndpoint</value>
   </data>
@@ -175,7 +184,7 @@
     <value>.PublishSettings</value>
   </data>
   <data name="PublishSettingsFileName" xml:space="preserve">
-    <value>Azure.PublishSettings</value>
+    <value>publishSettings.xml</value>
   </data>
   <data name="ServiceConfigurationCloudFileName" xml:space="preserve">
     <value>ServiceConfiguration.Cloud.cscfg</value>
@@ -187,7 +196,10 @@
     <value>ServiceDefinition.csdef</value>
   </data>
   <data name="SettingsFileName" xml:space="preserve">
-    <value>deploymentSettings.json</value>
+    <value>config.json</value>
+  </data>
+  <data name="SlaveRoleHostExternEndpoint" xml:space="preserve">
+    <value>SolrSlaveHostWorkerRoleExternalEndpointPort</value>
   </data>
   <data name="SlaveWorkerRoleInputEndpointName" xml:space="preserve">
     <value>SolrSlaveEndpoint</value>

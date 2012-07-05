@@ -27,12 +27,14 @@ using System.Text;
 using System.IO;
 using System.Net;
 using System.Threading;
-using AzureDeploymentCmdlets.Model;
+//using AzureDeploymentCmdlets.Model;
 using SolrDeployCmdlets.Utilities;
+using System.Management.Automation;
+
 
 namespace SolrDeployCmdlets.Solr.Cmdlet
 {
-    public abstract class DownloadAndInstallBase : CmdletBase
+    public abstract class DownloadAndInstallBase : PSCmdlet
     {
         private AutoResetEvent threadBlocker;
         private int downloadProgress;

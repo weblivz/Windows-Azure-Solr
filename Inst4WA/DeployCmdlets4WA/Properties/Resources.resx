@@ -123,7 +123,13 @@
   <data name="AzurePaaSPublishSettingsURL" xml:space="preserve">
     <value>https://windows.azure.com/download/publishprofile.aspx?client=nodejs&amp;lang=en</value>
   </data>
+  <data name="InvalidDownloadLocMessage" xml:space="preserve">
+    <value>Cannot find setup file at download location.</value>
+  </data>
+  <data name="InvalidXmlConfigPath" xml:space="preserve">
+    <value>Invalid XmlConfigPath.</value>
+  </data>
   <data name="WebPICmdlineURL" xml:space="preserve">
-    <value>http://go.microsoft.com/?linkid=9752821</value>
+    <value>http://go.microsoft.com/fwlink/?LinkId=233753</value>
   </data>
 </root>

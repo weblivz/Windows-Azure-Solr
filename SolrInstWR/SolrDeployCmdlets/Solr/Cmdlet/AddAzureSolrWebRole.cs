@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AzureDeploymentCmdlets.Model;
+//using AzureDeploymentCmdlets.Model;
 using System.Management.Automation;
 using SolrDeployCmdlets.Utilities;
 using SolrDeployCmdlets.ServiceConfigurationSchema;
@@ -33,8 +33,10 @@ using SolrDeployCmdlets.Properties;
 using System.Xml.Serialization;
 using System.Reflection;
 using System.IO;
-using AzureDeploymentCmdlets.Scaffolding;
+//using AzureDeploymentCmdlets.Scaffolding;
 using Microsoft.Win32;
+using Microsoft.WindowsAzure.Management.CloudService.Scaffolding;
+using Microsoft.WindowsAzure.Management.CloudService.Model;
 
 namespace SolrDeployCmdlets.Solr.Cmdlet
 {
@@ -50,6 +52,7 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
         {
             try
             {
+                SkipChannelInit = true;
                 base.ProcessRecord();
                 string result = this.addSolrWebRole();
                 WriteObject(result);
@@ -121,6 +124,12 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
             {
                 // Get default RoleSettings template
                 roleSettings = GetRoleCSCFG(roleName);
+
+                //Extract end points port for master and slave.
+                int masterEndPointPort, slaveEndPointPort;
+                masterEndPointPort = General.TryGetWorkerRoleEndPointPort(svcDef, Resources.MasterWorkerRoleInputEndpointName);
+                slaveEndPointPort = General.TryGetWorkerRoleEndPointPort(svcDef, Resources.SlaveWorkerRoleInputEndpointName);
+                SynchronizeEndPoints(ref roleSettings, masterEndPointPort, slaveEndPointPort);
 
                 // Add role to local and cloud *.cscfg
                 AddNewRole(localSvcConfig, roleSettings);
@@ -209,6 +218,19 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
         {
             webRoleOccurrence = (serviceDefinition.WebRole == null) ? 0 : serviceDefinition.WebRole.Length;
             workerRoleOccurrence = (serviceDefinition.WorkerRole == null) ? 0 : serviceDefinition.WorkerRole.Length;
+        }
+
+        private void SynchronizeEndPoints(ref RoleSettings settings, int masterRoleEndPointPort, int slaveRoleEndPointPort)
+        {
+            ServiceConfigurationSchema.ConfigurationSetting[] allSettings = settings.ConfigurationSettings;
+            if(masterRoleEndPointPort != 0)
+            {
+                allSettings.Where(e => e.name == Resources.MasterRoleHostExternEndpoint).FirstOrDefault().value = masterRoleEndPointPort.ToString();
+            }
+            if (slaveRoleEndPointPort != 0)
+            {
+                allSettings.Where(e => e.name == Resources.SlaveRoleHostExternEndpoint).FirstOrDefault().value = slaveRoleEndPointPort.ToString();
+            }
         }
 
     }

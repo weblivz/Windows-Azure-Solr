@@ -32,10 +32,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AzureDeploymentCmdlets">
-      <HintPath>lib\AzureDeploymentCmdlets.dll</HintPath>
-    </Reference>
     <Reference Include="ISymWrapper" />
+    <Reference Include="Microsoft.Samples.WindowsAzure.ServiceManagement">
+      <HintPath>lib\Microsoft.Samples.WindowsAzure.ServiceManagement.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Management">
+      <HintPath>lib\Microsoft.WindowsAzure.Management.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Management.CloudService">
+      <HintPath>lib\Microsoft.WindowsAzure.Management.CloudService.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Management.Service">
+      <HintPath>lib\Microsoft.WindowsAzure.Management.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Management.ServiceManagement">
+      <HintPath>lib\Microsoft.WindowsAzure.Management.ServiceManagement.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management.Automation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -59,13 +75,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Solr\Cmdlet\AddAzureSolrMasterWorkerRole.cs" />
-    <Compile Include="Solr\Cmdlet\AddAzureSolrSlaveWorkerRole.cs" />
-    <Compile Include="Solr\Cmdlet\AddAzureSolrWebRole.cs" />
-    <Compile Include="Solr\Cmdlet\DownloadAndInstallBase.cs" />
-    <Compile Include="Solr\Cmdlet\DownloadSolr.cs" />
-    <Compile Include="Solr\Cmdlet\InstallJRE.cs" />
-    <Compile Include="Solr\Cmdlet\SetAzureSolrStorageAccount.cs" />
+    <Compile Include="Solr\Cmdlet\AddAzureSolrMasterWorkerRole.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Solr\Cmdlet\AddAzureSolrSlaveWorkerRole.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Solr\Cmdlet\AddAzureSolrWebRole.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Solr\Cmdlet\DownloadAndInstallBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Solr\Cmdlet\DownloadSolr.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Solr\Cmdlet\InstallJRE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Solr\Cmdlet\SetAzureSolrStorageAccount.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Utilities\AzureStorageAccount.cs" />
     <Compile Include="Utilities\ExecuteCommands.cs" />
     <Compile Include="Utilities\General.cs" />
@@ -80,9 +110,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scaffolding\Solr\SolrSlaveHostWorkerRole\scaffold.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="tou.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -109,6 +136,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CopySolrBinaries.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SolrDeployCmdlets.psd1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

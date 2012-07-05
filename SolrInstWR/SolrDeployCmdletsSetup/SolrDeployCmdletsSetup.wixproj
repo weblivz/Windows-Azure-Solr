@@ -25,11 +25,7 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Scripts" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="azurecmdfilesSolrOnAzure.wxi" />
-    <Content Include="Scripts\CustomAction.vbs" />
     <Content Include="SingleClickSolrOnAzureLicensee.rtf" />
   </ItemGroup>
   <ItemGroup>
@@ -45,8 +41,8 @@
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
     <PostBuildEvent>COPY /Y $(SolutionDir)ConfigFiles\%2a.xml  $(TargetDir)
-
-COPY /Y $(SolutionDir)SolrDeployCmdlets\tou.html  $(TargetDir)</PostBuildEvent>
+DEL /Q $(ProjectDir)$(OutDir)$(TargetName)
+REN $(ProjectDir)$(OutDir)$(TargetFileName) $(TargetName)</PostBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

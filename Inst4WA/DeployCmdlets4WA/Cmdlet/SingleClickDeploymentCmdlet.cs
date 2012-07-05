@@ -34,6 +34,8 @@ using System.Runtime.InteropServices;
 using DeployCmdlets4WA.Properties;
 using System.Reflection;
 using System.Management.Automation.Runspaces;
+using System.Management;
+
 
 namespace DeployCmdlets4WA
 {
@@ -48,8 +50,11 @@ namespace DeployCmdlets4WA
             public const string PS1File = "PS1";
         }
 
+        private const string programFileNotation = "%%Program Files%%";
         private const string publishSettingExtn = ".publishsettings";
+
         private string _publishSettingsPath;
+        private bool _isXmlPathValid = true;
         private RuntimeDefinedParameterDictionary _runtimeParamsCollection;
         private AutoResetEvent _threadBlocker;
         private AutoResetEvent _executePS1Blocker;
@@ -67,13 +72,21 @@ namespace DeployCmdlets4WA
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         protected override void ProcessRecord()
         {
-            if (!ValidateParameters())
+            if (_isXmlPathValid == false || !ValidateParameters())
                 return;
 
             if (IsEmulator() == false)
             {
-                if (!DownloadPublishSettings())
-                    return;
+                string pubSettingsFilePath = string.Empty;
+                if (TryParsePubSettingFilePathParam(out  pubSettingsFilePath) == false)
+                {
+                    if (!DownloadPublishSettings())
+                        return;
+                }
+                else
+                {
+                    _controller.SetParameterByName("PublishSettingsFilePath", pubSettingsFilePath);
+                }
             }
 
             for (int i = 0; ; i++)
@@ -386,12 +399,18 @@ namespace DeployCmdlets4WA
 
         public object GetDynamicParameters()
         {
+            _runtimeParamsCollection = new RuntimeDefinedParameterDictionary();
+            if (File.Exists(XmlConfigPath) == false)
+            {
+                Console.WriteLine(Resources.InvalidXmlConfigPath);
+                _isXmlPathValid = false;
+                return _runtimeParamsCollection;
+            }
             _controller = new DeploymentModelHelper(XmlConfigPath);
             _controller.Init();
 
             IEnumerable<string> paramsForModel = _controller.GetAllParameters();
-            _runtimeParamsCollection = new RuntimeDefinedParameterDictionary();
-
+            
             foreach (string paramForModel in paramsForModel)
             {
                 RuntimeDefinedParameter dynamicParam = new RuntimeDefinedParameter()
@@ -455,7 +474,8 @@ namespace DeployCmdlets4WA
                 value = valuePrefix + valueSuffix;
             }
 
-            return value;
+            string foramttedValue = ReplaceNotations(value);
+            return foramttedValue;
         }
 
         private string GetDynamicParamValue(string paramName)
@@ -474,6 +494,62 @@ namespace DeployCmdlets4WA
                 return false;
             }
             return bool.Parse(paramValue);
+        }
+
+        /// <summary>
+        /// Method to replace special notations inside param values with actual values.
+        /// Currently %%Program Files%% will be replaced with -- [WINDIR]:\Progam Files(x86) for 64 Bit OS & [WINDIR]:\Progam Files for 32 Bit OS
+        /// </summary>
+        /// <param name="paramValue">Param value to be processed</param>
+        /// <returns>Processed param value</returns>
+        private string ReplaceNotations(string paramValue)
+        {
+            string formattedValue = paramValue;
+            if (paramValue.Contains(programFileNotation) == true)
+            {
+                string programFileLoc = GetProgramFileLocation();
+                formattedValue = formattedValue.Replace(programFileNotation, programFileLoc);
+            }
+            return formattedValue;
+        }
+
+        private string GetProgramFileLocation()
+        {
+            string windir = GetWinDir();
+            string programFileLocation = string.Empty;
+
+            using (ManagementObjectSearcher osDetailsFetcher = new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem"))
+            using (ManagementObjectCollection results = osDetailsFetcher.Get())
+            {
+                foreach (ManagementBaseObject eachResult in results)
+                {
+                    using (eachResult)
+                    {
+                        string osArchitecture = eachResult["OSArchitecture"].ToString();
+                        programFileLocation = osArchitecture == "64-bit" ? Path.Combine(windir, "Program Files (x86)") : Path.Combine(windir, "Program Files");
+                        break;
+                    }
+                }
+            }
+            return programFileLocation;
+        }
+
+        private string GetWinDir()
+        {
+            string windirEnvVar = Environment.GetEnvironmentVariable("windir");
+            return Path.GetPathRoot(windirEnvVar);
+        }
+
+        private bool TryParsePubSettingFilePathParam(out string pubSettingsFilePath)
+        {
+            string parmaValue = GetParamValue("PublishSettingsFilePath");
+            if (File.Exists(parmaValue) == true)
+            {
+                pubSettingsFilePath = parmaValue;
+                return true;
+            }
+            pubSettingsFilePath = null;
+            return false;
         }
     }
 }

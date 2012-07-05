@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Management.Automation;
-using AzureDeploymentCmdlets.Model;
+//using AzureDeploymentCmdlets.Model;
 using System.IO;
 using SolrDeployCmdlets.Properties;
 using Microsoft.Win32;

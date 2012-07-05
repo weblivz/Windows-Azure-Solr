@@ -313,6 +313,9 @@
       <Component Id="cmpB6707D9E5C5ECFDB681C5ED9BA39481D" Guid="8A37CC4D-5BB5-4910-BA62-78AD3B3D6499">
         <File Id="filA37AAB894F245EF5B743B4A1E32AA740" KeyPath="yes" Source="$(var.sourcedir)\SolrDeployCmdlets.dll" />
       </Component>
+      <Component Id="cmpD82987C758444F9D8EA76846C546DFCC" Guid="A6C2414E-2CE0-42ED-9CD5-DC44BAC707B9">
+        <File Id="fil0BF7796F1EE34CA989A5D38B3A38E60C" KeyPath="yes" Source="$(var.sourcedir)\SolrDeployCmdlets.psd1" />
+      </Component>
       <?if $(var.Configuration) = Debug ?>
       <Component Id="cmpC5013DFAE347841203A100925AE043EC" Guid="EE8E2E32-FD05-4950-B96F-41A268F4F750">
         <File Id="filFCA96DC56A33A420880761B50C78CB1B" KeyPath="yes" Source="$(var.sourcedir)\SolrDeployCmdlets.pdb" />
@@ -323,6 +326,7 @@
   <Fragment>
     <ComponentGroup Id="azurecmdfilesMicrosoft">
       <ComponentRef Id="cmpB6707D9E5C5ECFDB681C5ED9BA39481D" />
+      <ComponentRef Id="cmpD82987C758444F9D8EA76846C546DFCC"/>
       <?if $(var.Configuration) = Debug ?>
       <ComponentRef Id="cmpC5013DFAE347841203A100925AE043EC" />
       <?endif?>

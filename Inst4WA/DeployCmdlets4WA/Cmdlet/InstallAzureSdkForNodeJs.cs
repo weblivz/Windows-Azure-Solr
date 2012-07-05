@@ -57,7 +57,7 @@ namespace DeployCmdlets4WA.Cmdlet
             if (WasInstallationSuccessful() == false)
             {
                 Console.WriteLine(File.ReadAllText(logFileName));
-                WriteError(new ErrorRecord(new Exception("Installtion of Windows Azure SDK for node.js failed"), String.Empty, ErrorCategory.CloseError, null));
+                throw new Exception("Installtion of Windows Azure SDK for node.js failed. Please try installing the SDK separately and retry.");
             }
         }
 
@@ -68,8 +68,8 @@ namespace DeployCmdlets4WA.Cmdlet
             FileStream logFileFs = File.Create(logFileName);
             logFileFs.Close();
 
-            String pathToWebPIExe = Path.Combine(unzipLocation, "WebpiCmdLine.exe");
-            String installCommand = String.Format("Start-Process -File \"{0}\" -ArgumentList \" /Products:AzureNodePowershell /Log:{1} /AcceptEULA \" -Wait", pathToWebPIExe, logFileName);
+            String pathToWebPIExe = Path.Combine(unzipLocation, "WebpiCmd.exe");
+            String installCommand = String.Format("Start-Process -File \"{0}\" -ArgumentList \" /Install /Products:AzureNodeSDK /Log:{1} /AcceptEULA \" -Wait", pathToWebPIExe, logFileName);
             ExecuteCommands.ExecuteCommand(installCommand, this.Host);
             return logFileName;
         }
@@ -134,16 +134,16 @@ namespace DeployCmdlets4WA.Cmdlet
         private bool WasInstallationSuccessful()
         {
             string windowsDrive = Path.GetPathRoot(Environment.GetEnvironmentVariable("windir"));
-            string azureSdkDirectory = @"Microsoft SDKs\Windows Azure\Nodejs";
+            string azureSdkDirectory = @"Microsoft SDKs\Windows Azure\PowerShell\Microsoft.WindowsAzure.Management.CloudService.dll";
             
             string progFileX86Path = Path.Combine(windowsDrive, Path.Combine("Program Files (x86)", azureSdkDirectory));
-            if(Directory.Exists(progFileX86Path) == true)
+            if(File.Exists(progFileX86Path) == true)
             {
                 return true;
             }
 
             string progFilePath = Path.Combine(windowsDrive, Path.Combine("Program Files", azureSdkDirectory));
-            if(Directory.Exists(progFilePath) == true)
+            if (File.Exists(progFilePath) == true)
             {
                 return true;
             }

@@ -25,8 +25,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Management.Automation;
-using AzureDeploymentCmdlets.Model;
-using AzureDeploymentCmdlets.Scaffolding;
+//using AzureDeploymentCmdlets.Model;
+//using AzureDeploymentCmdlets.Scaffolding;
 using SolrDeployCmdlets.ServiceDefinitionSchema;
 using System.IO;
 using System.Xml.Serialization;
@@ -35,6 +35,8 @@ using System.Reflection;
 using SolrDeployCmdlets.Properties;
 using SolrDeployCmdlets.Utilities;
 using Microsoft.Win32;
+using Microsoft.WindowsAzure.Management.CloudService.Scaffolding;
+using Microsoft.WindowsAzure.Management.CloudService.Model;
 
 namespace SolrDeployCmdlets.Solr.Cmdlet
 {
@@ -50,10 +52,22 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
         [Parameter(Mandatory = true, HelpMessage = "Location of JRE on the user machine.")]
         public String JREInstallFolder { get; set; }
 
+        /// <summary>
+        /// Min should be 10 GB and Maximum can be 1 TB according to MSDN.
+        /// </summary>
+        [Parameter(Mandatory = false, HelpMessage = "Size of Azure cloud drive use to save Solr index in MB.")]
+        [ValidateRange(102400, 1048576)]
+        public int CloudDriveSize { get; set; }
+
+        [Parameter(Mandatory = false, HelpMessage = "External end point port for Solr slave instance. Value range 1-65535.")]
+        [ValidateRange(1, 65535)]
+        public int ExternalEndPointPort { get; set; }
+
         protected override void ProcessRecord()
         {
             try
             {
+                SkipChannelInit = true;
                 base.ProcessRecord();
                 string result = this.addSolrSlaveWorkerRole();
                 WriteObject(result);
@@ -131,6 +145,21 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
                 // Set instance count
                 roleSettings.Instances.count = numOfInstances == 0 ? 1 : numOfInstances;
 
+                //Set CloudDrive Size if parameter is set.
+                if (CloudDriveSize != 0)
+                {
+                    ServiceConfigurationSchema.ConfigurationSetting[] allConfigSettings = roleSettings.ConfigurationSettings;
+                    allConfigSettings.Where(e => e.name == Resources.CloudDriveSettingName).FirstOrDefault().value = CloudDriveSize.ToString();
+                }
+
+                //Try to get master worker role end point...and if exists update it in role settings.
+                int masterWorkerRoleEndPoint = General.TryGetWorkerRoleEndPointPort(svcDef, Resources.MasterWorkerRoleInputEndpointName);
+                if (masterWorkerRoleEndPoint != 0)
+                {
+                    roleSettings.ConfigurationSettings.Where(e => e.name == Resources.MasterRoleHostExternEndpoint).FirstOrDefault().value 
+                        = masterWorkerRoleEndPoint.ToString();
+                }
+
                 // Add role to local and cloud *.cscfg
                 AddNewRole(localSvcConfig, roleSettings);
                 AddNewRole(cloudSvcConfig, roleSettings);
@@ -138,6 +167,13 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
                 // Get default WorkerRole template
                 GetWorkerRoleCSDEFTemplate(roleName, ref workerRoleOccurrence, out workerRole);
                 workerRole.vmsize = Size == null ? RoleSize.Small : Size.Value;
+
+                //Set Endpoint if parameter is set.
+                if (ExternalEndPointPort != 0)
+                {
+                    InputEndpoint[] allInputEndPoitns = workerRole.Endpoints.InputEndpoint;
+                    allInputEndPoitns.Where(e => e.name == Resources.SlaveWorkerRoleInputEndpointName).FirstOrDefault().port = ExternalEndPointPort;
+                }
 
                 // Add WorkerRole to *.csdef file
                 AddNewWorkerRole(svcDef, workerRole);
@@ -154,6 +190,9 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
                     (this.Name == null ? Resources.SlaveWorkerRoleName : this.Name), this.Instances, serviceRootPath);
             }
 
+            //Method to make sure that value of Input endpoint is updated inside cscfg files for other roles as well.
+            SynchronizeEndPoints(ref localSvcConfig);
+
             // Serialize local.cscfg
             General.SerializeXmlFile<ServiceConfiguration>(localSvcConfig, localSvcConfigFileName);
             General.SerializeXmlFile<ServiceConfiguration>(cloudSvcConfig, cloudSvcConfigFileName);
@@ -161,6 +200,8 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
 
             return message;
         }
+
+        
 
         private void CreateScaffolding(string roleFolderName, bool isWebRole)
         {
@@ -244,6 +285,22 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
             String destinationDir = Path.Combine(base.GetServiceRootPath(), roleFolderName + @"\jre6");
             String copyCommand = String.Format("COPY-ITEM \"{0}\" \"{1}\" -recurse -force", JREInstallFolder, destinationDir);
             ExecuteCommands.ExecuteCommand(copyCommand);
+        }
+
+        private void SynchronizeEndPoints(ref ServiceConfiguration configFile)
+        {
+            foreach (RoleSettings eachRoleSetting in configFile.Role)
+            {
+                ServiceConfigurationSchema.ConfigurationSetting[] settings = eachRoleSetting.ConfigurationSettings;
+                if (settings != null)
+                {
+                    ServiceConfigurationSchema.ConfigurationSetting endPointSetting = settings.Where(e => e.name == Resources.SlaveRoleHostExternEndpoint).FirstOrDefault();
+                    if (endPointSetting != null && this.ExternalEndPointPort != 0)
+                    {
+                        endPointSetting.value = this.ExternalEndPointPort.ToString();
+                    }
+                }
+            }
         }
     }
 }
