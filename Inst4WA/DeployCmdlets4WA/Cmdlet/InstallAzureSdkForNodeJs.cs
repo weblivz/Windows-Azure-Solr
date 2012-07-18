@@ -40,6 +40,9 @@ namespace DeployCmdlets4WA.Cmdlet
 
         private int downloadProgress;
 
+        [Parameter(Mandatory = true, HelpMessage = "Specify the location where Azure node sdk is installed.")]
+        public string AzureNodeSdkLoc { get; set; }
+
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
@@ -133,22 +136,8 @@ namespace DeployCmdlets4WA.Cmdlet
 
         private bool WasInstallationSuccessful()
         {
-            string windowsDrive = Path.GetPathRoot(Environment.GetEnvironmentVariable("windir"));
-            string azureSdkDirectory = @"Microsoft SDKs\Windows Azure\PowerShell\Microsoft.WindowsAzure.Management.CloudService.dll";
-            
-            string progFileX86Path = Path.Combine(windowsDrive, Path.Combine("Program Files (x86)", azureSdkDirectory));
-            if(File.Exists(progFileX86Path) == true)
-            {
-                return true;
-            }
-
-            string progFilePath = Path.Combine(windowsDrive, Path.Combine("Program Files", azureSdkDirectory));
-            if (File.Exists(progFilePath) == true)
-            {
-                return true;
-            }
-
-            return false;
+            string cloudServiceDllLoc = Path.Combine(this.AzureNodeSdkLoc, "Microsoft.WindowsAzure.Management.CloudService.dll");
+            return File.Exists(cloudServiceDllLoc) == true;
         }
     }
 }

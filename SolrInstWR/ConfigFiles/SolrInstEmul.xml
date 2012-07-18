@@ -9,11 +9,11 @@
     <Parameter Name="AppFolder" Value="C:\Temp\DeploySolrOnEmulator" Required="yes"></Parameter>
     
     <Parameter Name="SolrDeployCmdletsAssemblyPath"
-               Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\SolrDeployCmdlets.dll" Required="yes"></Parameter>
+               Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\Azure\SolrDeployCmdlets.dll" Required="yes"></Parameter>
     <Parameter Name="AzureDeploymentCmdletsAssemblyPath"
-               Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\Microsoft.WindowsAzure.Management.CloudService.dll" Required="yes"></Parameter>
+               Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\Azure\Microsoft.WindowsAzure.Management.CloudService.dll" Required="yes"></Parameter>
     <Parameter Name="AzureMgmtCmdletsAssemblyPath"
-           Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\Microsoft.WindowsAzure.Management.dll" Required="yes"></Parameter>
+           Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\Azure\Microsoft.WindowsAzure.Management.dll" Required="yes"></Parameter>
     <Parameter Name="SolrSetupPath" Value="http://mirror.cc.columbia.edu/pub/software/apache/lucene/solr/3.5.0/apache-solr-3.5.0.zip" Required="yes"></Parameter>
     <Parameter Name="JREInstallFolder" Value="C:\Program Files\Java\jre7"></Parameter>
 
@@ -23,16 +23,21 @@
     <Parameter Name="CloudDriveSize" Value="102400"></Parameter>
     <Parameter Name="MasterEndPoint" Value="21000"></Parameter>
     <Parameter Name="SlaveEndPoint" Value="20000"></Parameter>
-    
+
+    <Parameter Name="InstCmdletArgs" Value="AzureNodeJsSdkPath"></Parameter>
+    <Parameter Name="AzureNodeJsSdkPath" Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\Azure"></Parameter>
   </Parameters>
   <Steps>
     <Step Type="Cmdlet" Command="Invoke-Executable" Message="Installing Node.JS">
       <CommandParam Name="DownloadLoc" ParameterName="NodeJsDownloadLoc" />
     </Step>
     <Step Type="Cmdlet" Command="Install-AzureSdkForNodeJs" Message="Installing Windows Azure PowerShell for Node.JS">
+      <CommandParam Name="AzureNodeSdkLoc" ParameterName="AzureNodeJsSdkPath" />
     </Step>
     <Step Type="Cmdlet" Command="Invoke-Executable" Message="Installing">
       <CommandParam Name="DownloadLoc" ParameterName="SolrDeploymentCmdletsSetupPath" />
+      <CommandParam Name="ArgumentList" ParameterName="InstCmdletArgs" />
+      <CommandParam Name="AzureNodeJsSdkPath" ParameterName="AzureNodeJsSdkPath" />
     </Step>
     <Step Type="Cmdlet" Command="Add-LoadAssembly" Message="Loading Windows Azure PowerShell for Node.JS">
       <CommandParam Name="CmdletsAssemblyPath" ParameterName="AzureDeploymentCmdletsAssemblyPath" />

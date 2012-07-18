@@ -289,10 +289,12 @@ namespace DeployCmdlets4WA
 
             try
             {
-                Collection<PSObject> results = this.InvokeCommand.InvokeScript(command);
-                foreach (PSObject result in results)
+                Runspace executePsCmdletRunspace = Runspace.DefaultRunspace;
+                using (Pipeline executePsCmdletPipeline = executePsCmdletRunspace.CreateNestedPipeline(command, true))
                 {
-                    Console.WriteLine(result.ToString());
+                    executePsCmdletPipeline.Error.DataReady += new EventHandler(Error_DataReadyExecutePsCmdlet);
+                    executePsCmdletPipeline.Output.DataReady += new EventHandler(Output_DataReadyExecutePsCmdlet);
+                    executePsCmdletPipeline.Invoke();
                 }
             }
             catch (Exception exc)
@@ -300,8 +302,31 @@ namespace DeployCmdlets4WA
                 Console.WriteLine("Exception while executing cmdlet: " + exc.Message);
                 return false;
             }
-
             return true;
+        }
+
+        private void Output_DataReadyExecutePsCmdlet(object sender, EventArgs e)
+        {
+            PipelineReader<PSObject> reader = sender as PipelineReader<PSObject>;
+            if (reader != null)
+            {
+                while (reader.Count > 0)
+                {
+                    Console.WriteLine(reader.Read().ToString());
+                }
+            }
+        }
+
+        private void Error_DataReadyExecutePsCmdlet(object sender, EventArgs e)
+        {
+            PipelineReader<Object> reader = sender as PipelineReader<Object>;
+            if (reader != null)
+            {
+                while (reader.Count > 0)
+                {
+                    Console.WriteLine(reader.Read().ToString());
+                }
+            }
         }
 
         private bool DownloadPublishSettings()
@@ -410,7 +435,7 @@ namespace DeployCmdlets4WA
             _controller.Init();
 
             IEnumerable<string> paramsForModel = _controller.GetAllParameters();
-            
+
             foreach (string paramForModel in paramsForModel)
             {
                 RuntimeDefinedParameter dynamicParam = new RuntimeDefinedParameter()
