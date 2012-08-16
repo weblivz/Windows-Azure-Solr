@@ -25,8 +25,8 @@ You are responsible for and must locate and read the license terms for each of t
 
 ## Copy the binaries
 1. Download and extract on your local computer the latest version SolrInstWRMMDDYYYY.zip (for example SolrInstWR06072012.zip) from https://github.com/MSOpenTech/Windows-Azure-Solr/downloads
-2. Copy the SolrInstWR.msi to your local web root. For example c:\inetpub\wwwroot
-3. Launch a command prompt (cmd.exe) as an administrator and cd to the local folder selected above
+
+2. Launch a command prompt (cmd.exe) as an administrator and cd to the local folder selected above
 
 ## Run the installer:
     - Inst4WA.exe -XmlConfigPath <yourpath>/SolrInstWR.xml -DomainName <youruniquename>  -Subscription <yoursubscription>
