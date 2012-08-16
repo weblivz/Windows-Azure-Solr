@@ -249,6 +249,14 @@ namespace SolrMasterHostWorkerRole
                 File.Copy(sourceFile, Path.Combine(vhdPath, "SolrStorage", "conf", confFileName), true);
             }
 
+            // Copy lang Directory.
+            IEnumerable<String> langFiles = Directory.EnumerateFiles(Path.Combine(Environment.GetEnvironmentVariable("RoleRoot") + @"\", @"approot\Solr\example\solr\conf\lang"));
+            foreach (String sourceFile in langFiles)
+            {
+                String confFileName = System.IO.Path.GetFileName(sourceFile);
+                File.Copy(sourceFile, Path.Combine(vhdPath, "SolrStorage", @"conf", confFileName), true);
+            }
+
             // Overwrite original versions of SOLR files.
             string modifiedSolrFileSrc = Path.Combine(Environment.GetEnvironmentVariable("RoleRoot") + @"\", @"approot\SolrFiles\");
             string modifiedSolrFileDestination = Path.Combine(vhdPath, "SolrStorage", "conf");

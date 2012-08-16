@@ -9,4 +9,5 @@
 
   <ScaffoldFile Path="SolrSlaveHostWorkerRole.dll" />
   <ScaffoldFile Path="SolrSlaveHostWorkerRole.dll.config" />
+  <ScaffoldFile Path="startup.cmd" />
 </Scaffold>

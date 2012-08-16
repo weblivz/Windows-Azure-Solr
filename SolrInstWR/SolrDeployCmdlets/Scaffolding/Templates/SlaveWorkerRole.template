@@ -6,6 +6,11 @@
         <NetFxEntryPoint assemblyName="SolrSlaveHostWorkerRole.dll" targetFrameworkVersion="v4.0" />
       </EntryPoint>
     </Runtime>
+    <Startup>
+      <Task commandLine="startup.cmd" executionContext="elevated">
+        <Environment />
+      </Task>
+    </Startup>
     <Imports>
       <Import moduleName="Diagnostics" />
     </Imports>

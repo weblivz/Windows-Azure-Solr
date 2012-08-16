@@ -6,6 +6,11 @@
         <NetFxEntryPoint assemblyName="bin\SolrAdminWebRole.dll" targetFrameworkVersion="v4.0" />
       </EntryPoint>
     </Runtime>
+    <Startup>
+      <Task commandLine="startup.cmd" executionContext="elevated">
+        <Environment />
+      </Task>
+    </Startup>
     <Sites>
       <Site name="Web">
         <Bindings>

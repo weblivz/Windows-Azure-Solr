@@ -14,7 +14,7 @@
                Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\Azure\Microsoft.WindowsAzure.Management.CloudService.dll" Required="yes"></Parameter>
     <Parameter Name="AzureMgmtCmdletsAssemblyPath"
            Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\Azure\Microsoft.WindowsAzure.Management.dll" Required="yes"></Parameter>
-    <Parameter Name="SolrSetupPath" Value="http://mirror.cc.columbia.edu/pub/software/apache/lucene/solr/3.5.0/apache-solr-3.5.0.zip" Required="yes"></Parameter>
+    <Parameter Name="SolrSetupPath" Value="http://mirror.cc.columbia.edu/pub/software/apache/lucene/solr/3.6.1/apache-solr-3.6.1.zip" Required="yes"></Parameter>
     <Parameter Name="JREInstallFolder" Value="C:\Program Files\Java\jre7"></Parameter>
 
     <Parameter Name="SolrDeploymentCmdletsSetupPath" Value="SolrInstWR" Required="yes"></Parameter>

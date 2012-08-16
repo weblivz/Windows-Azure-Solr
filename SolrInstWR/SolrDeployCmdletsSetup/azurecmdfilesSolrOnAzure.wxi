@@ -26,6 +26,9 @@
           <File Id="filD3D50C9C9A6A03269D6B9B9094EB62CB" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\Web.Release.config" />
         </Component>
         <Directory Id="dir2A26E487FBF98661E3325EBC3D4C45FE" Name="bin">
+          <Component Id="cmpF2A73575131343E69E2A8DEED64F511D" Guid="9D3683C9-2783-4D82-9A1D-14E6318A2FBA">
+            <File Id="fil733B18B62D084105B52A7BD810EB6ADF" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\startup.cmd" />
+          </Component>
           <Component Id="cmpA0588845C4C11539445F9C1EFD70EADA" Guid="7E89F88D-39F7-4A27-8ED2-66515E80B3F4">
             <File Id="filE8C886379C8360F040E904E2BB128E64" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrAdminWebRole\bin\HelperLib.dll" />
           </Component>
@@ -186,6 +189,9 @@
         <Component Id="cmp3886CC11B8C771BFFB42F095E0BB30D8" Guid="B1E419CE-3254-4869-8D19-E9A2ACA46ABE">
           <File Id="fil62D6B444591F14B561BF4B069CE1ABB4" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrMasterHostWorkerRole\SolrMasterHostWorkerRole.dll.config" />
         </Component>
+        <Component Id="cmp2CDDB0F46822494DB68C3F98F59C8FC2" Guid="A643DA21-E71E-4029-8F84-F36C754FD4A7">
+          <File Id="fil5A1914B01BCC4BADA235D55CC15ED8BB" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrMasterHostWorkerRole\startup.cmd" />
+        </Component>
         <Directory Id="dirEE961F514B9FF3D570335A60B5C78061" Name="SolrFiles">
           <Component Id="cmpDD994D3B6BB45E956E082F6B6AD454DD" Guid="48337C8F-A604-423B-8D16-96AA0FBEB6EE">
             <File Id="filFA94A1DB1A01CC6A8B3D24D560D3D5E6" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrMasterHostWorkerRole\SolrFiles\data-config.xml" />
@@ -220,6 +226,9 @@
         <Component Id="cmpD58D592E68612DEDBD5186561544C49A" Guid="3314D910-FA52-4177-B9CB-452A156BD172">
           <File Id="fil23D6CA3DC507931E2786DEC3935A8080" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrSlaveHostWorkerRole\SolrSlaveHostWorkerRole.dll.config" />
         </Component>
+        <Component Id="cmpFE4F13A7D90D46CF93B09F1C8F2FBBB7" Guid="18613E33-9690-4443-BF8E-15001515485B">
+          <File Id="fil21C5E7C3F91B49A894BDFC1BF59D49CA" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrSlaveHostWorkerRole\startup.cmd" />
+        </Component>
         <Directory Id="dirC09B20AC85E25A07A43B65A4DF455D2C" Name="SolrFiles">
           <Component Id="cmp8973C10F2F874199DE42C82C6F3444A6" Guid="CB1E1134-90D6-4C86-B909-CDD28CB3BBF4">
             <File Id="fil9768DF0C23278357A3D6AADC09D6EE63" KeyPath="yes" Source="$(var.sourcedirTillScaffolding)\SolrSlaveHostWorkerRole\SolrFiles\data-config.xml" />
@@ -243,6 +252,7 @@
       <ComponentRef Id="cmp4302357C5BEA40B08D9175BE4C8C856A" />
       <ComponentRef Id="cmpD8CF5FA7C19D21F6CF863D49C6A2D1D5" />
       <ComponentRef Id="cmpE346291861E96244F59D30D5DA0C1A07" />
+      <ComponentRef Id="cmpF2A73575131343E69E2A8DEED64F511D" />
       <ComponentRef Id="cmpA0588845C4C11539445F9C1EFD70EADA" />
       <ComponentRef Id="cmp3770919FAA5701451CFA5E2A296DC92D" />
       <ComponentRef Id="cmp229557EC47758524C75C2F45372F2AB9" />
@@ -306,6 +316,8 @@
       <ComponentRef Id="cmp8973C10F2F874199DE42C82C6F3444A6" />
       <ComponentRef Id="cmp1C103218C8D29F4214CB0E65737D2AF7" />
       <ComponentRef Id="cmp4CB11C13F1A7D97BF9DEE275FE035FB8" />
+      <ComponentRef Id="cmp2CDDB0F46822494DB68C3F98F59C8FC2" />
+      <ComponentRef Id="cmpFE4F13A7D90D46CF93B09F1C8F2FBBB7" />
     </ComponentGroup>
   </Fragment>
   <Fragment>

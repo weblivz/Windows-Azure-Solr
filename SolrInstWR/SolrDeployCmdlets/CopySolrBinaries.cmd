@@ -43,6 +43,7 @@ setlocal
 	COPY /Y %srcMasterRoleDir%Microsoft.WindowsAzure.CloudDrive.xml %destinationMasterRoleDir%Microsoft.WindowsAzure.CloudDrive.xml
 	COPY /Y %srcMasterRoleDir%Microsoft.WindowsAzure.Diagnostics.xml %destinationMasterRoleDir%Microsoft.WindowsAzure.Diagnostics.xml
 	COPY /Y %srcMasterRoleDir%Microsoft.WindowsAzure.StorageClient.xml %destinationMasterRoleDir%Microsoft.WindowsAzure.StorageClient.xml
+	COPY /Y %srcMasterRoleDir%startup.cmd %destinationMasterRoleDir%startup.cmd
 
 	::Copy Slave Role Folder
 
@@ -59,7 +60,8 @@ setlocal
 	COPY /Y %srcSlaveRoleDir%Microsoft.WindowsAzure.CloudDrive.xml %destinationSlaveRoleDir%Microsoft.WindowsAzure.CloudDrive.xml
 	COPY /Y %srcSlaveRoleDir%Microsoft.WindowsAzure.Diagnostics.xml %destinationSlaveRoleDir%Microsoft.WindowsAzure.Diagnostics.xml
 	COPY /Y %srcSlaveRoleDir%Microsoft.WindowsAzure.StorageClient.xml %destinationSlaveRoleDir%Microsoft.WindowsAzure.StorageClient.xml
-	
+	COPY /Y %srcSlaveRoleDir%startup.cmd %destinationSlaveRoleDir%startup.cmd
+
 endlocal
 GOTO:EOF
 	

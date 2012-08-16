@@ -55,7 +55,8 @@ namespace SolrDeployCmdlets.Solr.Cmdlet
 
             //Unzip
             String unzippedLocation = Unzip(downloadLocation);
-            String apacheSolrFolder = Path.Combine(unzippedLocation, "apache-solr-3.5.0\\*");
+            String downloadedSolrDirName = Path.GetFileNameWithoutExtension(SolrSetupPath);
+            String apacheSolrFolder = Path.Combine(unzippedLocation, downloadedSolrDirName + "\\*");
 
             //COPY Solr Binaries to Master worker role directory.
             String solrMasterRoleLocation = Path.Combine(azureSolrInstallFolder, Resources.SolrMasterWorkerRoleScaffoldFolder + "\\Solr");
