@@ -12,7 +12,7 @@ You are responsible for and must locate and read the license terms for each of t
 
 ## Prerequisites for installer
 
-1. Windows machine: Windows7(64 bit) or Win2008R2(64 bit)
+1. Windows machine: Windows 7 (64 bit) or Windows Server 2008 R2 (64 bit)
 
 2. IIS including the web roles ASP.Net, Tracing, logging & CGI Services needs to be enabled.
     - http://learn.iis.net/page.aspx/29/installing-iis-7-and-above-on-windows-server-2008-or-windows-server-2008-r2/ 
@@ -24,9 +24,11 @@ You are responsible for and must locate and read the license terms for each of t
 5. Note if you start with a clean machine:  To download public setting file the enhanced security configuration of IE needs to be disabled. Go to Server Manager -> configure IE ESC -> disable for Administrators.
 
 ## Copy the binaries
-1. Download and extract on your local computer the latest version SolrInstWRMMDDYYYY.zip (for example SolrInstWR06072012.zip) from https://github.com/MSOpenTech/Windows-Azure-Solr/downloads
+1. Download and extract on your local computer the latest version SolrInstWRMMDDYYYY.zip (for example SolrInstWR06072012.zip) from https://github.com/MSOpenTech/Windows-Azure-Solr/downloads.
 
-2. Launch a command prompt (cmd.exe) as an administrator and cd to the local folder selected above
+2. Please make sure that you unblock all the dll’s and config files using instructions at http://msdn.microsoft.com/en-us/library/ee890038(VS.100).aspx. 
+
+3. Launch a command prompt (cmd.exe) as an administrator and cd to the local folder selected above.
 
 ## Run the installer:
     - Inst4WA.exe -XmlConfigPath <yourpath>/SolrInstWR.xml -DomainName <youruniquename>  -Subscription <yoursubscription>

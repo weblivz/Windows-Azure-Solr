@@ -1,80 +1,124 @@
-﻿<DeploymentModel  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<DeploymentModel  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <!--
+      Test Command
+      Inst4WA.exe -XmlConfigPath SolrInstEmul.xml
+  -->
   <Parameters>
     <Parameter Name="Emulator" Value="true"></Parameter>
-    <Parameter Name="VMCountMasterRole" Value="1"></Parameter>
-    <Parameter Name="VMCountSlaveRole" Value="1"></Parameter>
-    
-    <Parameter Name="AppName" Value="SolrOnAzure" Required="yes"></Parameter>
-    <Parameter Name="AzureNodeJSSdkBinPath" Value="%%Program Files%%\nodejs" Required="yes"></Parameter>
-    <Parameter Name="AppFolder" Value="C:\Temp\DeploySolrOnEmulator" Required="yes"></Parameter>
-    
-    <Parameter Name="SolrDeployCmdletsAssemblyPath"
-               Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\Azure\SolrDeployCmdlets.dll" Required="yes"></Parameter>
+
     <Parameter Name="AzureDeploymentCmdletsAssemblyPath"
                Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\Azure\Microsoft.WindowsAzure.Management.CloudService.dll" Required="yes"></Parameter>
     <Parameter Name="AzureMgmtCmdletsAssemblyPath"
            Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\Azure\Microsoft.WindowsAzure.Management.dll" Required="yes"></Parameter>
-    <Parameter Name="SolrSetupPath" Value="http://mirror.cc.columbia.edu/pub/software/apache/lucene/solr/3.6.1/apache-solr-3.6.1.zip" Required="yes"></Parameter>
-    <Parameter Name="JREInstallFolder" Value="C:\Program Files\Java\jre7"></Parameter>
 
-    <Parameter Name="SolrDeploymentCmdletsSetupPath" Value="SolrInstWR" Required="yes"></Parameter>
-    <Parameter Name="NodeJsDownloadLoc" Value="http://nodejs.org/dist/v0.6.19/node-v0.6.19.msi"></Parameter>
+    <Parameter Name="SolrLoc" Value="C:\temp"></Parameter>
+    <Parameter Name="SolrDownloadLoc" Value="http://mirror.cc.columbia.edu/pub/software/apache/lucene/solr/3.6.1/apache-solr-3.6.1.zip"></Parameter>
 
-    <Parameter Name="CloudDriveSize" Value="102400"></Parameter>
-    <Parameter Name="MasterEndPoint" Value="21000"></Parameter>
-    <Parameter Name="SlaveEndPoint" Value="20000"></Parameter>
+    <Parameter Name="AppFolder" Value="C:\temp\DeploySolrOnEmul"></Parameter>
+    <Parameter Name="AppName" Value="SolrOnAzure"></Parameter>
 
-    <Parameter Name="InstCmdletArgs" Value="AzureNodeJsSdkPath"></Parameter>
+    <Parameter Name="MasterRoleBinariesFolder" Value="SolrPkg\SolrMasterHostWorkerRole"></Parameter>
+    <Parameter Name="SlaveRoleBinariesFolder" Value="SolrPkg\SolrSlaveHostWorkerRole"></Parameter>
+    <Parameter Name="WebRoleBinariesFolder" Value="SolrPkg\SolrAdminWebRole"></Parameter>
+    <Parameter Name="CSCFGFile" Value="SolrPkg\ServiceConfiguration.Local.cscfg"></Parameter>
+    <Parameter Name="CSDEFFile" Value="SolrPkg\ServiceDefinition.csdef"></Parameter>
+    
+    <Parameter Name="MasterRole" Value="SolrMasterHostWorkerRole"></Parameter>
+    <Parameter Name="SlaveRole" Value="SolrSlaveHostWorkerRole"></Parameter>
+    <Parameter Name="WebRole" Value="SolrAdminWebRole"></Parameter>
+
+    <Parameter Name="JRESrc" Value="C:\Program Files\Java\jre7"></Parameter>
+    <Parameter Name="JREDestMaster" Value="C:\Temp\DeploySolrOnEmul\SolrOnAzure\SolrMasterHostWorkerRole\jre6"></Parameter>
+    <Parameter Name="JRESlave" Value="C:\Temp\DeploySolrOnEmul\SolrOnAzure\SolrSlaveHostWorkerRole\jre6"></Parameter>
+
+    <Parameter Name="SolrSrc" Value="C:\temp\apache-solr-3.6.1"></Parameter>
+    <Parameter Name="SolrDestMaster" Value="C:\Temp\DeploySolrOnEmul\SolrOnAzure\SolrMasterHostWorkerRole\Solr"></Parameter>
+    <Parameter Name="SolrDestSlave" Value="C:\Temp\DeploySolrOnEmul\SolrOnAzure\SolrSlaveHostWorkerRole\Solr"></Parameter>
+
     <Parameter Name="AzureNodeJsSdkPath" Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\Azure"></Parameter>
+    <Parameter Value="Stop" Name="ErrorActionValue"/>
   </Parameters>
   <Steps>
-    <Step Type="Cmdlet" Command="Invoke-Executable" Message="Installing Node.JS">
-      <CommandParam Name="DownloadLoc" ParameterName="NodeJsDownloadLoc" />
+
+    <!--Install Pre-requisites-->
+    <Step Type="Cmdlet" Command="Get-Unzip" Message="Downloading Solr">
+      <CommandParam Name="Url" ParameterName="SolrDownloadLoc" />
+      <CommandParam Name="UnzipLoc" ParameterName="SolrLoc" />
     </Step>
     <Step Type="Cmdlet" Command="Install-AzureSdkForNodeJs" Message="Installing Windows Azure PowerShell for Node.JS">
       <CommandParam Name="AzureNodeSdkLoc" ParameterName="AzureNodeJsSdkPath" />
     </Step>
-    <Step Type="Cmdlet" Command="Invoke-Executable" Message="Installing">
-      <CommandParam Name="DownloadLoc" ParameterName="SolrDeploymentCmdletsSetupPath" />
-      <CommandParam Name="ArgumentList" ParameterName="InstCmdletArgs" />
-      <CommandParam Name="AzureNodeJsSdkPath" ParameterName="AzureNodeJsSdkPath" />
-    </Step>
+
+    <!--Load Azure SDK Dll's-->
     <Step Type="Cmdlet" Command="Add-LoadAssembly" Message="Loading Windows Azure PowerShell for Node.JS">
       <CommandParam Name="CmdletsAssemblyPath" ParameterName="AzureDeploymentCmdletsAssemblyPath" />
     </Step>
     <Step Type="Cmdlet" Command="Add-LoadAssembly" Message="Loading Windows Azure PowerShell for Node.JS">
       <CommandParam Name="CmdletsAssemblyPath" ParameterName="AzureMgmtCmdletsAssemblyPath" />
     </Step>
-    <Step Type="Cmdlet" Command="Add-LoadAssembly" Message="Loading Windows Azure PowerShell for Apache Solr and Node.JS">
-      <CommandParam Name="CmdletsAssemblyPath" ParameterName="SolrDeployCmdletsAssemblyPath" />
-    </Step>
-    <Step Type="Cmdlet" Command="Get-Solr" Message="Downloading Solr Binaries">
-      <CommandParam Name="SolrSetupPath" ParameterName="SolrSetupPath" />
-    </Step>
+    
+    <!--Create Empty App-->
     <Step Type="Cmdlet" Command="New-ApplicationDirectory" Message="Creating application directory">
       <CommandParam Name="AppFolder" ParameterName="AppFolder" />
     </Step>
-    <Step Type="ChangeWorkingDir" Command="" Message="">
-      <CommandParam Name="WorkingDir" ParameterName="AppFolder" />
+    <Step Message="Changing to application directory" Command="" Type="ChangeWorkingDir">
+      <CommandParam Name="WorkingDir" ParameterName="AppFolder"/>
     </Step>
-    <Step Type="Cmdlet" Command="New-AzureServiceProject" Message="Creating new Azure service">
-      <CommandParam Name="ServiceName" ParameterName="AppName" />
+    <Step Message="Creating new Azure service" Command="New-AzureServiceProject" Type="Cmdlet">
+      <CommandParam Name="ServiceName" ParameterName="AppName"/>
     </Step>
-    <Step Type="Cmdlet" Command="Add-AzureSolrMasterWorkerRole" Message="Adding Solr Master Worker Role">
-      <CommandParam Name="JREInstallFolder" ParameterName="JREInstallFolder" />
-      <CommandParam Name="Instances" ParameterName="VMCountMasterRole" />
-      <CommandParam Name="CloudDriveSize" ParameterName="CloudDriveSize" />
-      <CommandParam Name="ExternalEndPointPort" ParameterName="MasterEndPoint" />
+
+    <!--Create Master Role-->
+    <Step Type="Cmdlet" Command="Add-AzureWorkerRole" Message="Creating Solr master worker role.">
+      <CommandParam Name="RoleBinariesFolder" ParameterName="MasterRoleBinariesFolder" />
+      <CommandParam Name="CSCFGFile" ParameterName="CSCFGFile" />
+      <CommandParam Name="CSDEFFile" ParameterName="CSDEFFile" />
+      <CommandParam Name="RoleName" ParameterName="MasterRole" />
     </Step>
-    <Step Type="Cmdlet" Command="Add-AzureSolrSlaveWorkerRole" Message="Adding Solr Slave Worker Role">
-      <CommandParam Name="JREInstallFolder" ParameterName="JREInstallFolder" />
-      <CommandParam Name="Instances" ParameterName="VMCountSlaveRole" />
-      <CommandParam Name="CloudDriveSize" ParameterName="CloudDriveSize" />
-      <CommandParam Name="ExternalEndPointPort" ParameterName="SlaveEndPoint" />
+    <Step Type="Cmdlet" Command="Copy-Item" Message="Copying JRE to master role.">
+      <CommandParam Name="Path" ParameterName="JRESrc" />
+      <CommandParam Name="Destination" ParameterName="JREDestMaster" />
+      <CommandParam Name="ErrorAction" ParameterName="ErrorActionValue"/>
+      <CommandParam Name="Recurse" ParameterName="" />
     </Step>
-    <Step Type="Cmdlet" Command="Add-AzureSolrWebRole" Message="Adding Solr Web Role">
+    <Step Type="Cmdlet" Command="Copy-Item" Message="Copying Solr to master role.">
+      <CommandParam Name="Path" ParameterName="SolrSrc" />
+      <CommandParam Name="Destination" ParameterName="SolrDestMaster" />
+      <CommandParam Name="ErrorAction" ParameterName="ErrorActionValue"/>
+      <CommandParam Name="Recurse" ParameterName="" />
     </Step>
-    <Step Type="Cmdlet" Command="Start-AzureEmulator -launch" Message="Deploying Solr On Azure inside Emulator">
+
+    <!--Create Slave Role-->
+    <Step Type="Cmdlet" Command="Add-AzureWorkerRole" Message="Creating Solr slave worker role.">
+      <CommandParam Name="RoleBinariesFolder" ParameterName="SlaveRoleBinariesFolder" />
+      <CommandParam Name="CSCFGFile" ParameterName="CSCFGFile" />
+      <CommandParam Name="CSDEFFile" ParameterName="CSDEFFile" />
+      <CommandParam Name="RoleName" ParameterName="SlaveRole" />
     </Step>
+    <Step Type="Cmdlet" Command="Copy-Item" Message="Copying JRE to master role.">
+      <CommandParam Name="Path" ParameterName="JRESrc" />
+      <CommandParam Name="Destination" ParameterName="JRESlave" />
+      <CommandParam Name="ErrorAction" ParameterName="ErrorActionValue"/>
+      <CommandParam Name="Recurse" ParameterName="" />
+    </Step>
+    <Step Type="Cmdlet" Command="Copy-Item" Message="Copying Solr to master role.">
+      <CommandParam Name="Path" ParameterName="SolrSrc" />
+      <CommandParam Name="Destination" ParameterName="SolrDestSlave" />
+      <CommandParam Name="ErrorAction" ParameterName="ErrorActionValue"/>
+      <CommandParam Name="Recurse" ParameterName="" />
+    </Step>
+    
+    <!--Create web role-->
+    <Step Type="Cmdlet" Command="Add-AzureWebRole" Message="Creating Solr web role.">
+      <CommandParam Name="RoleBinariesFolder" ParameterName="WebRoleBinariesFolder" />
+      <CommandParam Name="CSCFGFile" ParameterName="CSCFGFile" />
+      <CommandParam Name="CSDEFFile" ParameterName="CSDEFFile" />
+      <CommandParam Name="RoleName" ParameterName="WebRole" />
+    </Step>
+
+    <Step Type="Cmdlet" Command="Start-AzureEmulator -launch" Message="Deploying CouchDb inside Emulator">
+    </Step>
+   
   </Steps>
 </DeploymentModel>

@@ -1,8 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceDefinition name="ReplSolr" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2012-05.1.7">
   <WebRole name="SolrAdminWebRole" vmsize="Small">
-    <Runtime executionContext="elevated">
+   <Runtime executionContext="elevated">
+      <EntryPoint>
+        <NetFxEntryPoint assemblyName="bin\SolrAdminWebRole.dll" targetFrameworkVersion="v4.0" />
+      </EntryPoint>
     </Runtime>
+    <Startup>
+      <Task commandLine="startup.cmd" executionContext="elevated">
+        <Environment />
+      </Task>
+    </Startup>
     <Sites>
       <Site name="Web">
         <Bindings>
@@ -24,6 +32,16 @@
     </ConfigurationSettings>
   </WebRole>
   <WorkerRole name="SolrMasterHostWorkerRole" vmsize="Small">
+  	<Runtime executionContext="elevated">
+      <EntryPoint>
+        <NetFxEntryPoint assemblyName="SolrMasterHostWorkerRole.dll" targetFrameworkVersion="v4.0" />
+      </EntryPoint>
+    </Runtime>
+    <Startup>
+      <Task commandLine="startup.cmd" executionContext="elevated">
+        <Environment />
+      </Task>
+    </Startup>
     <Imports>
       <Import moduleName="Diagnostics" />
     </Imports>
@@ -40,6 +58,16 @@
     </Endpoints>
   </WorkerRole>
   <WorkerRole name="SolrSlaveHostWorkerRole" vmsize="Small">
+   	<Runtime executionContext="elevated">
+      <EntryPoint>
+        <NetFxEntryPoint assemblyName="SolrSlaveHostWorkerRole.dll" targetFrameworkVersion="v4.0" />
+      </EntryPoint>
+    </Runtime>
+    <Startup>
+      <Task commandLine="startup.cmd" executionContext="elevated">
+        <Environment />
+      </Task>
+    </Startup>
     <Imports>
       <Import moduleName="Diagnostics" />
     </Imports>
