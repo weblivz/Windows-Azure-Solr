@@ -1,3 +1,13 @@
+Solr 4 Upgrade
+===
+
+This includes :
+
+- Now works with all version of Solr up to 4.
+- Improved the Build so that is allows local Solr uploads.
+- Upgraded to VS2012 - added events to allow running fully locally.
+- Improved deloyment support.
+
 Note: Read the README_BUILD.txt for Solr 4 upgrade data including build and deploy support.
 
 You are responsible for reading licences and the info below and related https://github.com/MSOpenTech/Windows-Azure-Solr project is key.
