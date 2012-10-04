@@ -34,7 +34,9 @@
 <div id="searchResult" style="width:900px; height: 500px; border:1px solid #000; overflow: auto;">
     <p>@ViewBag.SearchStatus</p>
 
-    @if (ViewBag.SearchResults != null)
+    @if (ViewBag.SearchResults != null) { <div>@ViewBag.SearchResults.Count</div> }
+        
+    @if (ViewBag.SearchResults != null && ViewBag.SearchResults is System.Collections.IEnumerable)
     {
         <ul>
         @foreach (SolrAdminWebRole.Controllers.SearchResult result in ViewBag.SearchResults)
@@ -45,5 +47,9 @@
             </li>
         }
     </ul>
+    }
+    else
+    {
+        @ViewBag.SearchResults
     }
 </div>

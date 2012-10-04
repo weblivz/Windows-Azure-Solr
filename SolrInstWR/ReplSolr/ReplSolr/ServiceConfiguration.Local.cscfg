@@ -16,17 +16,25 @@
       <Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="CloudDriveSize" value="4096" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="JavaVersion" value="7"/>
+      <Setting name="SolrIsConfigured" value="true" />
+      <Setting name="SolrVersion" value="4.1" />
+      <Setting name="SolrInstanceName" value="example"/>
     </ConfigurationSettings>
     <Certificates>
     </Certificates>
   </Role>
   <Role name="SolrSlaveHostWorkerRole">
-    <Instances count="2" />
+    <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="CloudDriveSize" value="4096" />
       <Setting name="SolrMasterHostWorkerRoleExternalEndpointPort" value="21000" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="JavaVersion" value="7"/>
+      <Setting name="SolrIsConfigured" value="true" />
+      <Setting name="SolrVersion" value="4.1" />
+      <Setting name="SolrInstanceName" value="example"/>
     </ConfigurationSettings>
     <Certificates>
     </Certificates>

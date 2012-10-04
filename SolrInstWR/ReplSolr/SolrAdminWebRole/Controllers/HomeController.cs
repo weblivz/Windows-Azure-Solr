@@ -390,7 +390,6 @@ namespace SolrAdminWebRole.Controllers
                 ViewBag.SiteUrl = siteUrl;
 
             string solrUrl = HelperLib.Util.GetSolrUrl(true);
-
             if (solrUrl == null)
             {
                 ViewBag.Message = "Crawl and index website [Not ready]";
@@ -468,6 +467,7 @@ namespace SolrAdminWebRole.Controllers
                 postUrl = String.Format("{0}update", HelperLib.Util.GetSolrUrl(true));
                 webRequest = (HttpWebRequest)WebRequest.Create(postUrl);
                 webRequest.Method = "POST";
+                webRequest.ContentType = "text/xml";
 
                 using (Stream requestStream = webRequest.GetRequestStream())
                 {

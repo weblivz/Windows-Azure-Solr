@@ -5,14 +5,13 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>1.7</ProductVersion>
-    <ProjectGuid>{72555d3c-d226-475e-b569-491abff2d20f}</ProjectGuid>
+    <ProjectGuid>a872c2fb-fd14-426e-939c-bdc8b2887eac</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ReplSolzr</RootNamespace>
-    <AssemblyName>RepSolzr</AssemblyName>
+    <RootNamespace>ReplSolr</RootNamespace>
+    <AssemblyName>ReplSolr</AssemblyName>
     <StartDevelopmentStorage>True</StartDevelopmentStorage>
     <Name>ReplSolr</Name>
-    <UseIISExpressByDefault>False</UseIISExpressByDefault>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,7 +39,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SolrAdminWebRole\SolrAdminWebRole.csproj">
       <Name>SolrAdminWebRole</Name>
-      <Project>{9581f5eb-35dc-4d8c-94cf-1abe2a659f6e}</Project>
+      <Project>{ef6e52a1-0a29-4f74-bf6b-dbfe090490ce}</Project>
       <Private>True</Private>
       <RoleType>Web</RoleType>
       <RoleName>SolrAdminWebRole</RoleName>
@@ -48,7 +47,7 @@
     </ProjectReference>
     <ProjectReference Include="..\SolrMasterHostWorkerRole\SolrMasterHostWorkerRole.csproj">
       <Name>SolrMasterHostWorkerRole</Name>
-      <Project>{60fe49e0-a43b-42a2-b26d-2609c3e4beb7}</Project>
+      <Project>{d76d503e-5d60-4e10-aecb-c8f93ef3301b}</Project>
       <Private>True</Private>
       <RoleType>Worker</RoleType>
       <RoleName>SolrMasterHostWorkerRole</RoleName>
@@ -56,15 +55,12 @@
     </ProjectReference>
     <ProjectReference Include="..\SolrSlaveHostWorkerRole\SolrSlaveHostWorkerRole.csproj">
       <Name>SolrSlaveHostWorkerRole</Name>
-      <Project>{4b8270a5-0e34-4cea-a285-281403f7be7a}</Project>
+      <Project>{b9e6e3fd-c70f-4aa1-b91b-e51918fdc5dd}</Project>
       <Private>True</Private>
       <RoleType>Worker</RoleType>
       <RoleName>SolrSlaveHostWorkerRole</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Profiles" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
@@ -72,4 +68,14 @@
     <CloudExtensionsDir Condition=" '$(CloudExtensionsDir)' == '' ">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Windows Azure Tools\1.7\</CloudExtensionsDir>
   </PropertyGroup>
   <Import Project="$(CloudExtensionsDir)Microsoft.WindowsAzure.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>XCOPY /Y/I/Q/S "C:\Program Files (x86)\Java" ..\..\csx\Debug\roles\SolrMasterHostWorkerRole\approot
+XCOPY /Y/I/Q/S "C:\Program Files (x86)\Java" ..\..\csx\Debug\roles\SolrSlaveHostWorkerRole\approot
+XCOPY /Y/I/Q/S C:\dev\Solr4Azure\Solr ..\..\csx\Debug\roles\SolrMasterHostWorkerRole\approot\solr
+XCOPY /Y/I/Q/S C:\dev\Solr4Azure\Solr ..\..\csx\Debug\roles\SolrSlaveHostWorkerRole\approot\solr</PostBuildEvent>
+  </PropertyGroup>
 </Project>

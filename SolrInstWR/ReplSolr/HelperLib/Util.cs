@@ -41,6 +41,8 @@ namespace HelperLib
 
         public static string GetMasterUrl()
         {
+            //return "http://localhost:8983/solr/";
+
             int numTries = 100;
 
             while (--numTries > 0) // try multiple times since master may be initializing
@@ -61,6 +63,8 @@ namespace HelperLib
         // returns null if the url could not be obtained for any reason (such as the role was not available)
         public static string GetSolrUrl(bool bMaster, int iInstance = -1)
         {
+            //return "http://localhost:8983/solr/";
+
             string url = null;
 
             try

@@ -2,7 +2,7 @@
 
   <!--
       Test Command
-      Inst4WA.exe -XmlConfigPath SolrInstEmul.xml - 
+      Inst4WA.exe -XmlConfigPath SolrInstEmul.xml
   -->
   <Parameters>
     <Parameter Name="Emulator" Value="true"></Parameter>
@@ -11,9 +11,6 @@
                Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\Azure\Microsoft.WindowsAzure.Management.CloudService.dll" Required="yes"></Parameter>
     <Parameter Name="AzureMgmtCmdletsAssemblyPath"
            Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\Azure\Microsoft.WindowsAzure.Management.dll" Required="yes"></Parameter>
-
-    <Parameter Name="SolrLoc" Value="C:\temp"></Parameter>
-    <Parameter Name="SolrDownloadLoc" Value="http://mirror.cc.columbia.edu/pub/software/apache/lucene/solr/3.6.1/apache-solr-3.6.1.zip"></Parameter>
 
     <Parameter Name="AppFolder" Value="C:\temp\DeploySolrOnEmul"></Parameter>
     <Parameter Name="AppName" Value="SolrOnAzure"></Parameter>
@@ -29,12 +26,8 @@
     <Parameter Name="WebRole" Value="SolrAdminWebRole"></Parameter>
 
     <Parameter Name="JRESrc" Value="C:\Program Files\Java\jre7"></Parameter>
-    <Parameter Name="JREDestMaster" Value="C:\Temp\DeploySolrOnEmul\SolrOnAzure\SolrMasterHostWorkerRole\jre6"></Parameter>
-    <Parameter Name="JRESlave" Value="C:\Temp\DeploySolrOnEmul\SolrOnAzure\SolrSlaveHostWorkerRole\jre6"></Parameter>
-
-    <Parameter Name="SolrSrc" Value="C:\temp\apache-solr-3.6.1"></Parameter>
-    <Parameter Name="SolrDestMaster" Value="C:\Temp\DeploySolrOnEmul\SolrOnAzure\SolrMasterHostWorkerRole\Solr"></Parameter>
-    <Parameter Name="SolrDestSlave" Value="C:\Temp\DeploySolrOnEmul\SolrOnAzure\SolrSlaveHostWorkerRole\Solr"></Parameter>
+    <Parameter Name="JREDestMaster" Value="C:\Temp\DeploySolrOnEmul\SolrOnAzure\SolrMasterHostWorkerRole\jre7"></Parameter>
+    <Parameter Name="JRESlave" Value="C:\Temp\DeploySolrOnEmul\SolrOnAzure\SolrSlaveHostWorkerRole\jre7"></Parameter>
 
     <Parameter Name="AzureNodeJsSdkPath" Value="%%Program Files%%\Microsoft SDKs\Windows Azure\PowerShell\Azure"></Parameter>
     <Parameter Value="Stop" Name="ErrorActionValue"/>
@@ -42,10 +35,6 @@
   <Steps>
 
     <!--Install Pre-requisites-->
-    <Step Type="Cmdlet" Command="Get-Unzip" Message="Downloading Solr">
-      <CommandParam Name="Url" ParameterName="SolrDownloadLoc" />
-      <CommandParam Name="UnzipLoc" ParameterName="SolrLoc" />
-    </Step>
     <Step Type="Cmdlet" Command="Install-AzureSdkForNodeJs" Message="Installing Windows Azure PowerShell for Node.JS">
       <CommandParam Name="AzureNodeSdkLoc" ParameterName="AzureNodeJsSdkPath" />
     </Step>
@@ -82,12 +71,6 @@
       <CommandParam Name="ErrorAction" ParameterName="ErrorActionValue"/>
       <CommandParam Name="Recurse" ParameterName="" />
     </Step>
-    <Step Type="Cmdlet" Command="Copy-Item" Message="Copying Solr to master role.">
-      <CommandParam Name="Path" ParameterName="SolrSrc" />
-      <CommandParam Name="Destination" ParameterName="SolrDestMaster" />
-      <CommandParam Name="ErrorAction" ParameterName="ErrorActionValue"/>
-      <CommandParam Name="Recurse" ParameterName="" />
-    </Step>
 
     <!--Create Slave Role-->
     <Step Type="Cmdlet" Command="Add-AzureWorkerRole" Message="Creating Solr slave worker role.">
@@ -99,12 +82,6 @@
     <Step Type="Cmdlet" Command="Copy-Item" Message="Copying JRE to master role.">
       <CommandParam Name="Path" ParameterName="JRESrc" />
       <CommandParam Name="Destination" ParameterName="JRESlave" />
-      <CommandParam Name="ErrorAction" ParameterName="ErrorActionValue"/>
-      <CommandParam Name="Recurse" ParameterName="" />
-    </Step>
-    <Step Type="Cmdlet" Command="Copy-Item" Message="Copying Solr to master role.">
-      <CommandParam Name="Path" ParameterName="SolrSrc" />
-      <CommandParam Name="Destination" ParameterName="SolrDestSlave" />
       <CommandParam Name="ErrorAction" ParameterName="ErrorActionValue"/>
       <CommandParam Name="Recurse" ParameterName="" />
     </Step>
