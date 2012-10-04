@@ -1,3 +1,7 @@
+Note: Read the README_BUILD.txt for Solr 4 upgrade data including build and deploy support.
+
+You are responsible for reading licences and the info below and related https://github.com/MSOpenTech/Windows-Azure-Solr project is key.
+
 Solr/Lucene on Azure
 ===
 In this project we showcase how to configure and host Solr/Lucene in Windows Azure using multi-instance replication for index-serving and single-instance for index generation with a persistent index mounted in Azure storage. Typical scenarios we address with this sample are commercial and publisher sites that need to scale the traffic with increasing query volume and need to index maximum 16 TB of data and require couple of index updates per day.
