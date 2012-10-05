@@ -301,7 +301,7 @@ namespace SolrSlaveHostWorkerRole
                 foreach (String sourceFile in langFiles)
                 {
                     String confFileName = System.IO.Path.GetFileName(sourceFile);
-                    File.Copy(sourceFile, Path.Combine(vhdPath, "SolrStorage", @"conf", confFileName), true);
+                    File.Copy(sourceFile, Path.Combine(vhdPath, "SolrStorage", @"conf\\lang", confFileName), true);
                 }
             }
             else
@@ -311,7 +311,55 @@ namespace SolrSlaveHostWorkerRole
                 foreach (String sourceFile in langFiles)
                 {
                     String confFileName = System.IO.Path.GetFileName(sourceFile);
-                    File.Copy(sourceFile, Path.Combine(vhdPath, "SolrStorage", "collection1\\conf", confFileName), true);
+                    File.Copy(sourceFile, Path.Combine(vhdPath, "SolrStorage", "collection1\\conf\\lang", confFileName), true);
+                }
+            }
+
+            // copy data import handler
+            if (_solrVersion < 4.0m)
+            {
+                if (Directory.Exists(Path.Combine(Environment.GetEnvironmentVariable("RoleRoot") + @"\", @"approot\Solr\", RoleEnvironment.GetConfigurationSettingValue("SolrInstanceName"), @"solr\conf\dataimporthandler")))
+                {
+                    // Copy lang Directory.
+                    IEnumerable<String> dhFiles = Directory.EnumerateFiles(Path.Combine(Environment.GetEnvironmentVariable("RoleRoot") + @"\", @"approot\Solr\", RoleEnvironment.GetConfigurationSettingValue("SolrInstanceName"), @"solr\conf\dataimporthandler"));
+                    foreach (String sourceFile in dhFiles)
+                    {
+                        String confFileName = System.IO.Path.GetFileName(sourceFile);
+                        File.Copy(sourceFile, Path.Combine(vhdPath, "SolrStorage", @"conf\\dataimporthandler", confFileName), true);
+                    }
+                }
+
+                // copy the jdbc driver if we have it
+                if (Directory.Exists(Path.Combine(Environment.GetEnvironmentVariable("RoleRoot") + @"\", @"approot\Solr\", RoleEnvironment.GetConfigurationSettingValue("SolrInstanceName"), @"solr\lib")))
+                {
+                    if (File.Exists(Path.Combine(Environment.GetEnvironmentVariable("RoleRoot") + @"\", @"approot\Solr\", RoleEnvironment.GetConfigurationSettingValue("SolrInstanceName"), @"solr\lib\sqljdbc4.jar")))
+                    {
+                        string sourceFile = Path.Combine(Environment.GetEnvironmentVariable("RoleRoot") + @"\", @"approot\Solr\", RoleEnvironment.GetConfigurationSettingValue("SolrInstanceName"), @"solr\lib\sqljdbc4.jar");
+                        File.Copy(sourceFile, Path.Combine(vhdPath, "SolrStorage", "conf\\lib\\sqljdbc4.jar"), true);
+                    }
+                }
+            }
+            else
+            {
+                if (Directory.Exists(Path.Combine(Environment.GetEnvironmentVariable("RoleRoot") + @"\", @"approot\Solr\", RoleEnvironment.GetConfigurationSettingValue("SolrInstanceName"), @"solr\collection1\conf\lang")))
+                {
+                    // Copy lang Directory.
+                    IEnumerable<String> dhFiles = Directory.EnumerateFiles(Path.Combine(Environment.GetEnvironmentVariable("RoleRoot") + @"\", @"approot\Solr\", RoleEnvironment.GetConfigurationSettingValue("SolrInstanceName"), @"solr\collection1\conf\lang"));
+                    foreach (String sourceFile in dhFiles)
+                    {
+                        String confFileName = System.IO.Path.GetFileName(sourceFile);
+                        File.Copy(sourceFile, Path.Combine(vhdPath, "SolrStorage", "collection1\\conf\\dataimporthandler", confFileName), true);
+                    }
+                }
+
+                // copy the jdbc driver if we have it
+                if (Directory.Exists(Path.Combine(Environment.GetEnvironmentVariable("RoleRoot") + @"\", @"approot\Solr\", RoleEnvironment.GetConfigurationSettingValue("SolrInstanceName"), @"solr\collection1\lib")))
+                {
+                    if (File.Exists(Path.Combine(Environment.GetEnvironmentVariable("RoleRoot") + @"\", @"approot\Solr\", RoleEnvironment.GetConfigurationSettingValue("SolrInstanceName"), @"solr\collection1\lib\sqljdbc4.jar")))
+                    {
+                        string sourceFile = Path.Combine(Environment.GetEnvironmentVariable("RoleRoot") + @"\", @"approot\Solr\", RoleEnvironment.GetConfigurationSettingValue("SolrInstanceName"), @"solr\collection1\lib\sqljdbc4.jar");
+                        File.Copy(sourceFile, Path.Combine(vhdPath, "SolrStorage", "collection1\\conf\\lib\\sqljdbc4.jar"), true);
+                    }
                 }
             }
 
