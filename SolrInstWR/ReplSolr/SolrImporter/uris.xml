@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  	<url switch="1">{0}dataimport?command=full-import&amp;clean=true</url>
+</root>

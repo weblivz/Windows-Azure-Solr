@@ -35,6 +35,12 @@ XCOPY /Y/I/Q/S SolrInstWR\ReplSolr\SolrSlaveHostWorkerRole\bin\Debug build\SolrI
 COPY /Y SolrInstWR\ReplSolr\ReplSolr\ServiceConfiguration.Local.cscfg build\SolrInstWR\Debug\SolrPkg\ServiceConfiguration.Local.cscfg
 COPY /Y SolrInstWR\ReplSolr\ReplSolr\ServiceDefinition.csdef build\SolrInstWR\Debug\SolrPkg\ServiceDefinition.csdef
 
+rem copy the solr importer exe and xml files
+echo copying solr importer files
+COPY /Y SolrInstWR\ReplSolr\SolrImporter\bin\Debug\SolrImporter.exe build\SolrInstWR\Debug\SolrPkg\SolrMasterHostWorkerRole\SolrImporter.exe
+COPY /Y SolrInstWR\ReplSolr\SolrImporter\bin\Debug\HelperLib.dll build\SolrInstWR\Debug\SolrPkg\SolrMasterHostWorkerRole\HelperLib.dll
+COPY /Y SolrInstWR\ReplSolr\SolrImporter\bin\Debug\uris.xml build\SolrInstWR\Debug\SolrPkg\SolrMasterHostWorkerRole\uris.xml
+
 rem copy the solr files if passed (if you pass a preconfigured Solr directory)
 echo copy jre
 
@@ -65,6 +71,12 @@ XCOPY /Y/I/Q/S SolrInstWR\ReplSolr\SolrMasterHostWorkerRole\bin\Release build\So
 XCOPY /Y/I/Q/S SolrInstWR\ReplSolr\SolrSlaveHostWorkerRole\bin\Release build\SolrInstWR\Release\SolrPkg\SolrSlaveHostWorkerRole
 COPY /Y SolrInstWR\ReplSolr\ReplSolr\ServiceConfiguration.Local.cscfg build\SolrInstWR\Release\SolrPkg\ServiceConfiguration.Local.cscfg
 COPY /Y SolrInstWR\ReplSolr\ReplSolr\ServiceDefinition.csdef build\SolrInstWR\Release\SolrPkg\ServiceDefinition.csdef
+
+rem copy the solr importer exe and xml files
+echo copying solr importer files
+COPY /Y SolrInstWR\ReplSolr\SolrImporter\bin\Release\SolrImporter.exe build\SolrInstWR\Release\SolrPkg\SolrMasterHostWorkerRole\SolrImporter.exe
+COPY /Y SolrInstWR\ReplSolr\SolrImporter\bin\Release\HelperLib.dll build\SolrInstWR\Release\SolrPkg\SolrMasterHostWorkerRole\HelperLib.dll
+COPY /Y SolrInstWR\ReplSolr\SolrImporter\bin\Release\uris.xml build\SolrInstWR\Release\SolrPkg\SolrMasterHostWorkerRole\uris.xml
 
 rem copy the solr files if passed (if you pass a preconfigured Solr directory)
 echo copy jre

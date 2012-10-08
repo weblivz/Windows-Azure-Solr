@@ -204,7 +204,7 @@ namespace SolrAdminWebRole.Controllers
             {
                 HttpWebRequest request = WebRequest.Create(solrUrl + "select/?start=0&rows=10&indent=on&q=" +
                     HttpUtility.UrlEncode(searchText)) as HttpWebRequest;
-                
+
 
                 // Get response  
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
@@ -572,38 +572,56 @@ namespace SolrAdminWebRole.Controllers
 
             XmlNodeList resultDocs = docSearchResult.SelectNodes("/response/result/doc");
 
-            foreach (XmlNode resultDoc in resultDocs)
+            if (resultDocs.Count > 0 && resultDocs[0].SelectSingleNode("*[@name='titleText']") == null)
             {
-                XmlNode node = resultDoc.SelectSingleNode("*[@name='titleText']");
-
-                if (node == null)
-                    continue;
-
-                SearchResult result = new SearchResult();
-                result.Title = node.InnerText;
-
-                node = resultDoc.SelectSingleNode("*[@name='id']");
-                if (node == null)
-                    continue;
-
-                Uri uri;
-                int id;
-
-                // crawler data uses url as the id. Wikipedia uses a numeric id, and we have to consturct a url from the revision id and the title text.
-                if (Uri.TryCreate(node.InnerText, UriKind.Absolute, out uri))
-                    result.Url = uri.ToString();
-                else if (int.TryParse(node.InnerText, out id))
+                foreach (XmlNode resultDoc in resultDocs)
                 {
-                    node = resultDoc.SelectSingleNode("*[@name='revision']");
+                    Uri uri;
+                    SearchResult result = new SearchResult();
+                    result.Title = resultDoc.SelectSingleNode("*[@name='description']").InnerText;
+                    if (Uri.TryCreate(resultDoc.SelectSingleNode("*[@name='description']").InnerText, UriKind.Absolute, out uri))
+                    {
+                        result.Url = uri.ToString();
+                    }
+
+                    results.Add(result);
+                }
+            }
+            else
+            {
+                foreach (XmlNode resultDoc in resultDocs)
+                {
+                    XmlNode node = resultDoc.SelectSingleNode("*[@name='titleText']");
+
                     if (node == null)
                         continue;
 
-                    string revisionId = node.InnerText;
-                    string titleText = result.Title.Replace(' ', '_');
-                    result.Url = string.Format("http://en.wikipedia.org/w/index.php?title={0}&oldid={1}", titleText, revisionId);
-                }
+                    SearchResult result = new SearchResult();
+                    result.Title = node.InnerText;
 
-                results.Add(result);
+                    node = resultDoc.SelectSingleNode("*[@name='id']");
+                    if (node == null)
+                        continue;
+
+                    Uri uri;
+                    int id;
+
+                    // crawler data uses url as the id. Wikipedia uses a numeric id, and we have to consturct a url from the revision id and the title text.
+                    if (Uri.TryCreate(node.InnerText, UriKind.Absolute, out uri))
+                        result.Url = uri.ToString();
+                    else if (int.TryParse(node.InnerText, out id))
+                    {
+                        node = resultDoc.SelectSingleNode("*[@name='revision']");
+                        if (node == null)
+                            continue;
+
+                        string revisionId = node.InnerText;
+                        string titleText = result.Title.Replace(' ', '_');
+                        result.Url = string.Format("http://en.wikipedia.org/w/index.php?title={0}&oldid={1}", titleText, revisionId);
+                    }
+
+                    results.Add(result);
+                }
             }
 
             return results;
